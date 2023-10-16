@@ -1,0 +1,80 @@
+class ButtonModule {
+    constructor(firstClickEvent, secondClickEvent) {
+      this.firstClickEvent = firstClickEvent;
+      this.secondClickEvent = secondClickEvent;
+      this.fader1 = document.querySelector(".fader1");
+      this.fader2 = document.querySelector(".fader2");
+      this.fader3 = document.querySelector(".fader3");
+      this.fader4 = document.querySelector(".fader4");
+    }
+  
+    fader1Click() {
+      this.fader1.onclick = () => {
+        if (!this.secondClickEvent) {
+          this.secondClickEvent = this.firstClickEvent;
+          this.firstClickEvent = "fader1";
+          healthBar.updateHealth(healthBar.health + 10); 
+          this.checkClickEvents();
+        } else {
+          this.firstClickEvent = this.secondClickEvent;
+          this.secondClickEvent = "fader1";
+          this.checkClickEvents();
+        }
+      };
+    }
+  
+    fader2Click() {
+      this.fader2.onclick = () => {
+        if (!this.secondClickEvent) {
+          this.secondClickEvent = this.firstClickEvent;
+          this.firstClickEvent = "fader2";
+          healthBar.updateHealth(healthBar.health + 10); 
+        } else {
+          this.firstClickEvent = this.secondClickEvent;
+          this.secondClickEvent = "fader2";
+          this.checkClickEvents();
+        }
+      };
+    }
+  
+    fader3Click() {
+      this.fader3.onclick = () => {
+        if (!this.secondClickEvent) {
+          this.secondClickEvent = this.firstClickEvent;
+          this.firstClickEvent = "fader3";
+          healthBar.updateHealth(healthBar.health + 10);
+        } else {
+          this.firstClickEvent = this.secondClickEvent;
+          this.secondClickEvent = "fader3";
+          this.checkClickEvents();
+        }
+      };
+    }
+  
+    fader4Click() {
+      this.fader4.onclick = () => {
+        if (!this.secondClickEvent) {
+          this.secondClickEvent = this.firstClickEvent;
+          this.firstClickEvent = "fader4";
+          healthBar.updateHealth(healthBar.health + 10);
+        } else {
+          this.firstClickEvent = this.secondClickEvent;
+          this.secondClickEvent = "fader4";
+          this.checkClickEvents();
+        }
+      };
+    }
+  
+    checkClickEvents() {
+        if (this.firstClickEvent !== this.secondClickEvent && this.secondClickEvent !== null) {
+            healthBar.updateHealth(healthBar.health + 10);
+          }
+    }
+  }
+  
+  // Usage example
+  const buttonModule = new ButtonModule();
+  buttonModule.fader1Click();
+  buttonModule.fader2Click();
+  buttonModule.fader3Click();
+  buttonModule.fader4Click();

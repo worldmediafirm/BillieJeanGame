@@ -1,0 +1,54 @@
+class ButtonModule {
+  constructor() {
+    this.fader1 = document.querySelector(".fader1");
+    this.fader2 = document.querySelector(".fader2");
+    this.fader3 = document.querySelector(".fader3");
+    this.fader4 = document.querySelector(".fader4");
+    
+    this.faderElements = [this.fader1, this.fader2, this.fader3, this.fader4];
+    
+    this.firstClickEvent = null;
+    this.secondClickEvent = null;
+    
+    this.addClickHandlers();
+  }
+
+  addClickHandlers() {
+    this.fader1.onclick = () => this.handleFaderClick("fader1");
+    this.fader2.onclick = () => this.handleFaderClick("fader2");
+    this.fader3.onclick = () => this.handleFaderClick("fader3");
+    this.fader4.onclick = () => this.handleFaderClick("fader4");
+  }
+  
+  handleFaderClick(faderEvent) {
+    if (!this.secondClickEvent) {
+      this.secondClickEvent = this.firstClickEvent;
+      this.firstClickEvent = faderEvent;
+      healthBar.updateHealth(healthBar.health + 10);
+    } else {
+      this.firstClickEvent = this.secondClickEvent;
+      this.secondClickEvent = faderEvent;
+      this.checkClickEvents();
+    }
+  }
+  
+  checkClickEvents() {
+    if (this.firstClickEvent !== this.secondClickEvent && this.secondClickEvent !== null) {
+      healthBar.updateHealth(healthBar.health + 10);
+    }
+  }
+  
+  animateFaders() {
+    this.faderElements.forEach(fader => {
+      fader.classList.add('moveUpAnimation');
+
+      setTimeout(() => {
+        fader.classList.remove('moveUpAnimation');
+      }, 1000);
+    });
+  }
+}
+
+// Usage example
+const buttonModule = new ButtonModule();
+buttonModule.animateFaders();

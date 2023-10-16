@@ -1,0 +1,231 @@
+body {
+  background-color: black;
+}
+
+.game-container {
+  width: 1280px;
+  height: 720px;
+  margin: auto;
+  position: relative; /* Change to relative positioning */
+  border: 5px solid rgb(224, 224, 224);
+  overflow: hidden;
+  background-position: center;
+}
+
+
+.game-background {
+  background-image: url('/graphic-assets/Background.png');
+  width: 1280px;
+  height: 550px;
+ 
+}
+
+.Gameplay-UI{
+  background-image: url('/graphic-assets/Gameplay-UI-Final.png');
+  width: 1280px;
+  height: 170px;
+}
+
+.countdown{
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.DJUMC {
+  background-image: url('graphic-assets/DJ-UMC-Main.png');
+  height: 300px;
+  width: 374px;
+  background-repeat: no-repeat;
+  position: absolute;
+  transform: translate(110%, -156.8%)
+ 
+}
+
+.console {
+  background-image: url('/graphic-assets/Console.png');
+  width: 698px;
+  height:297px;
+  background-repeat: no-repeat; 
+  transform: translate(43%, -90%);
+
+}
+
+
+
+  @keyframes vibrate {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-2px, -2px); }
+    40% { transform: translate(2px, 2px); }
+    60% { transform: translate(-2px, -2px); }
+    80% { transform: translate(2px, 2px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  .moveUpAnimation1{
+    animation: moveUpAnimationKeyFrame1 .07s ease-in-out;
+    }
+
+  .moveUpAnimation2{
+      animation: moveUpAnimationKeyFrame2 .07s ease-in-out;
+    }
+
+  .moveUpAnimation3{
+        animation: moveUpAnimationKeyFrame3 .07s ease-in-out;
+    }
+
+  .moveUpAnimation4{
+          animation: moveUpAnimationKeyFrame4 .07s ease-in-out;
+    }
+  
+  @keyframes moveUpAnimationKeyFrame1 {
+    0% {
+      transform: translate(662%, 736%);
+    }
+    100% {
+      transform: translate(662%, 700%);
+    }
+  }
+  
+  @keyframes moveUpAnimationKeyFrame2 {
+    0% {
+      transform: translate(830%, 736%);
+    }
+    100% {
+      transform: translate(830%, 700%);
+    }
+  }
+
+  @keyframes moveUpAnimationKeyFrame3 {
+    0% {
+      transform: translate(1000%, 736%);
+    }
+    100% {
+      transform: translate(1000%, 700%);
+    }
+  }
+
+  @keyframes moveUpAnimationKeyFrame4 {
+    0% {
+      transform: translate(1170%, 736%);
+    }
+    100% {
+      transform: translate(1170%, 700%);
+    }
+  }
+
+
+  .fader1 {
+    background-image: url('graphic-assets/Studio-Faders/Fader-1.png');
+    position: absolute;
+    width: 66px;
+    height: 80px;
+    transform-origin: center center;
+    transform: translate(662%, 736%);
+    z-index: 2;
+     }
+
+  .fader2{
+    background-image: url('/graphic-assets/Studio-Faders/Fader-2.png');
+    position: absolute;
+    width: 66px;
+    height: 80px;
+    transform-origin: center center;
+    transform: translate(830%, 736%);
+    z-index: 2;
+  }
+
+  .fader3{
+    background-image: url('/graphic-assets/Studio-Faders/Fader-3.png');
+    position: absolute;
+    width: 66px;
+    height: 80px;
+    transform-origin: center center;
+    transform: translate(1000%, 736%);
+    z-index: 2;
+  }
+
+  .fader4{
+    background-image: url('/graphic-assets/Studio-Faders/Fader-4.png');
+    position: absolute;
+    width: 66px;
+    height: 80px;
+    transform-origin: center center;
+    transform: translate(1170%, 736%);
+    z-index: 2;
+  }
+  
+
+  #health-bar {
+    position: absolute;
+    transform: translate(10%, -50%);
+    z-index: 3;
+  }
+  
+  #death-bar {
+    position: absolute;
+    transform: translate(280%, -50%);
+    z-index: 3;
+    
+  }
+  
+
+   .enemies {
+    background-image: url('/graphic-assets/enemy-main.png');
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+    /*background-color: red;*/
+  }
+
+  .game-over-pic {
+    background-image: url('/graphic-assets/game-over-graphic.png');
+    position: absolute;
+    width: 620px;
+    height: 320px;
+    overflow: hidden;
+    /*transform: translate(280%, 100%);*/
+    /*z-index: 4;*/
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+  
+  .overlay h2 {
+    margin-bottom: 10px;
+  }
+  
+  .overlay input {
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .overlay button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  
+
+  

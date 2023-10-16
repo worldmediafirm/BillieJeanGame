@@ -1,0 +1,79 @@
+class DoublyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+    this.isEmailSubmitted = false; // Add this variable
+  }
+
+// Modified enqueue method in DoublyLinkedList class
+enqueue(email) {
+  // Check if the email has already been submitted
+  if (this.isEmailSubmitted) {
+    console.log('Email has already been submitted.');
+    return;
+  }
+
+  // Check if the email already exists in the list
+  if (this.hasEmail(email)) {
+    console.log('Email already exists in the list.');
+    return;
+  }
+
+  const newNode = new Node(email);
+
+  if (this.isEmpty()) {
+    this.head = newNode;
+    this.tail = newNode;
+  } else {
+    this.tail.next = newNode;
+    newNode.prev = this.tail;
+    this.tail = newNode;
+  }
+  this.length++;
+  this.isEmailSubmitted = true; // Set the flag to true after adding the email
+}
+
+// Method to check if an email already exists in the list
+hasEmail(email) {
+  let currentNode = this.head;
+  while (currentNode) {
+    if (currentNode.email === email) {
+      return true;
+    }
+    currentNode = currentNode.next;
+  }
+  return false;
+}
+
+function GameWon() {
+  // ... (existing code)
+
+  function handleButtonClick() {
+    const playerEmail = input.value;
+
+    // Check if the email is empty
+    if (playerEmail.trim() === '') {
+      alert('Please enter a valid email.');
+      return;
+    }
+
+    // Check if the email has already been submitted
+    if (winnersList.isEmailSubmitted) {
+      alert('Email has already been submitted.');
+      return;
+    }
+
+    // Check if the email already exists in the list
+    if (winnersList.hasEmail(playerEmail)) {
+      alert('Email already exists in the list.');
+      return;
+    }
+
+    winnersList.enqueue(playerEmail);
+    input.value = '';
+    console.log(winnersList);
+  }
+}
+
+
