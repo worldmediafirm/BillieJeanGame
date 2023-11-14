@@ -74,7 +74,7 @@ function doRectanglesOverlap(rect1, rect2) {
 
 setInterval(() => {
   createEnemy();
-}, 200); // Create a new enemy every 1 second
+}, 500); // Create a new enemy every 1 second
 
 setInterval(() => {
   animateEnemies();
