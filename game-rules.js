@@ -47,7 +47,5 @@ const frame2 = function() {
 };*/
 
 
-
-
 frame();
 frame2();

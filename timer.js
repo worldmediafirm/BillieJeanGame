@@ -1,3 +1,12 @@
+function GameLostPictureOverlay() {
+  const gameOver = document.createElement('div');
+  gameOver.className = 'game-over-pic';
+  gameOver.style.left = '330px'; // Starting from the top
+  gameOver.style.top = '0px';
+  document.querySelector('.game-container').appendChild(gameOver);
+  return gameOver;
+}
+
 function stopTheClockFunction(){
   clearInterval(timerInterval);
 }
@@ -25,15 +34,19 @@ if (currentTime === 0 || deathBar.health >= 100) {
 // Handle the game logic when the timer runs out
 stopTheClockFunction();
 GameLostPictureOverlay();
+setInterval(() => {
+GameLost();  
+}, 1700);
+
 //setTimeout(function(){GameLost();}, 1500);
 }
 
 if (currentTime != 0 && healthBar.health >= 100 && deathBar.health < 100){
   stopTheClockFunction();
-  GameWon()
+  /*GameWon()
   .then(data =>{
     sendClientEmailData(data);
-  })
+  })*/
 }
   
   //getClientEmailData(emailValue);

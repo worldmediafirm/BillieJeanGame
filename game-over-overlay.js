@@ -102,7 +102,6 @@ var sendClientEmailData = async (data) =>{
       gameContainer.appendChild(overlay);
   
       function handleButtonClick() {
-        console.log('STARTING FROM BEGINNING :)')
         location.reload();
         //StartGameFromBeginning(); --> Arbritray Function not yet delcared
 

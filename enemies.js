@@ -1,5 +1,14 @@
+async function GetCurrentGameSoundStatusFromServer() {
+  const response = await fetch('http://localhost:3000/CurrentSoundStatus');
+  const RealTimeSoundStatus = await response.json();
+  console.log(RealTimeSoundStatus); // Handle the response from the server
+  return RealTimeSoundStatus;
+}
+
+
 const EnemyObject =
 {
+
   
     createEnemy: function () {
     const enemy = document.createElement('div');
@@ -76,19 +85,22 @@ const EnemyObject =
   }
   
 } //EnemyOjbect Closed.
-  
 
 
-
-setInterval(() => {
+  GetCurrentGameSoundStatusFromServer().then(response =>{ setInterval(() => {
     EnemyObject.createEnemy();
+   if (response.soundOn === true){
     EnemyObject.EnemySoundEffect();
+   }
   }, 500); // Create a new enemy every 1 second
   
   setInterval(() => {
     EnemyObject.animateEnemies();
     
   }, 100); // Animate enemies every 100 milliseconds
+})
+
+ 
 
 
 
