@@ -1,0 +1,27 @@
+{
+  "name": "billie-jean-game",
+  "version": "1.0.0",
+  "description": "Simple Video Game to DJ UMC's cover of Billie Jean",
+  "main": "comm-n-ports.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/worldmediafirm/BillieJeanGame.git"
+  },
+  "keywords": [
+    "n/a"
+  ],
+  "author": "World Media Firm LLC",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/worldmediafirm/BillieJeanGame/issues"
+  },
+  "homepage": "https://github.com/worldmediafirm/BillieJeanGame#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mariadb": "^3.3.0",
+    "mysql2": "^3.9.3"
+  }
+}
