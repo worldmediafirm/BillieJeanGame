@@ -23,7 +23,7 @@ const EnemyObject =
  
   animateEnemies: function () {
     const enemies = document.querySelectorAll('.enemies');
-    const DJUMC = document.querySelector('.DJUMC');
+    const DJUMC = document.querySelector('.Main_Character');
     const DJUMCRect = DJUMC.getBoundingClientRect();
     // Calculate the dimensions for the smaller collision box
   const smallerWidth = DJUMCRect.width - 100; // Adjust the value as needed

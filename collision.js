@@ -1,7 +1,7 @@
 function checkCollisionWithElement(element) {
 
 
-var DJUMC = document.querySelector('.DJUMC');
+var DJUMC = document.querySelector('.Main_Character');
 var DJUMCRect = DJUMC.getBoundingClientRect();
 var DJUMCLeft = DJUMCRect.left;
 var DJUMCTop = DJUMCRect.top;

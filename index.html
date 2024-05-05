@@ -11,11 +11,16 @@
       <div id="overlayContent">
           <input type="file" id="imageInput" accept="image/*" style="display: none;">
           <button id="uploadButton">Upload Your Picture</button>
-
           <button id="playDefault">Play Game in Default Settings</button>
+
+          <button id="confirmButton" style="display:none;">Confirm Image</button>
+          <button id="retryButton" style="display:none;">Upload Different Image</button>
+
       </div>
+      <img id="User_Pic_Upload" alt="Processed Image">
   </div>
 
+  
     <div class="menu-container" alt="menu-container">
         <div class="Header"></div>
         <div class="Instructions"></div>
@@ -24,15 +29,14 @@
         <button class="Start_Button">Start</button>
      <!-- </a>-->
        <button class="Sound_Toggle_Button">Sound On</button>
-        <div class="User_Pic_Upload">
+        
         
      </div>
      
     
 <!--"Javascript"-->
-<script src="game-start-button-module.js"></script>
-<script src="sound-manager.js"></script>
 <script src="user-image-handler.js"></script>
-<!--<script src="enemies.js"></script>-->
+<script src="sound-manager.js"></script>
+<script src="game-start-module.js"></script>
 </body>
 </html>

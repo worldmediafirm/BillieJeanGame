@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mysql = require('mysql2');
+//const mysql = require('mysql2');
 
 const app = express();
 const port = 3000;
@@ -13,12 +13,12 @@ app.listen(port, () => {console.log(`Server is running on port ${port}`);});
     
 
 // Create a connection to the MariaDB database
-const connection = mysql.createConnection({
+/*const connection = mysql.createConnection({
   host: '127.0.0.1',
   user: 'wmfmariadb',
   password: 'L@Z3r60466',
   database: 'winnersEmailList',
-});
+});*/
 
 var PostSoundStatusFromObject = {};
 
