@@ -24,8 +24,9 @@ const SoundToggleObject = {
 
   createJSONFromSoundOnMethod: function() {
     // Create an object with the soundOn value
-    var SoundStatusJSONObject = { soundOn: this.soundOn };
-
+    const now = new Date();
+    var SoundStatusJSONObject = { date: `${now.toLocaleString()}`, soundOn: this.soundOn };
+  
     // Return the object as a JSON string
     return (SoundStatusJSONObject);
 },

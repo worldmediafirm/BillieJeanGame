@@ -69,15 +69,19 @@ body {
   transform: translate(-50%, -50%);
 }
 
+
 .Main_Character {
-  background-image: url('graphic-assets/DJ-UMC-Main.png');
+  background-image: var(--main-character-bg); /* Use the CSS variable */
   height: 300px;
   width: 374px;
   background-repeat: no-repeat;
+  background-size: cover; /* Ensure the image covers the entire element */
+  background-position: center; /* Center the background in the element */
   position: absolute;
-  transform: translate(110%, -156.8%)
- 
+  transform: translate(110%, -156.8%);
 }
+
+
 
 .console {
   background-image: url('/graphic-assets/Console.png');
