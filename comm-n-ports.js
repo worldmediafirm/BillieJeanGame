@@ -24,16 +24,16 @@ app.listen(port, () => {console.log(`Server is running on port ${port}`);});
 // Middleware to increase request size limit for JSON payloads
 app.use(express.json({ limit: '100mb' })); // Adjust the limit as necessary
 app.use(express.urlencoded({ limit: '100mb', extended: true, parameterLimit: 50000 }));
-//const mysql = require('mysql2');
+const mysql = require('mysql2');
 //--------------------------------------------------------------    
 
 // Create a connection to the MariaDB database
-/*const connection = mysql.createConnection({
+const connection = mysql.createConnection({
   host: '127.0.0.1',
-  user: 'wmfmariadb',
+  user: 'root',
   password: 'L@Z3r60466',
   database: 'winnersEmailList',
-});*/
+});
 
 var PostSoundStatusFromObject = {};
 
@@ -74,14 +74,14 @@ app.post('/winnersEmail', (req, res) => {
   var email = req.body;
   // Process the data on the server
   console.log(email);
- // addRecordToDatabase(email);
+ addRecordToDatabase(email);
   res.send('Data received on the server.');
 });
 
 
 // Function to insert a new record into the database
 function addRecordToDatabase(email) {
-  const query = `INSERT INTO winnersEmailList (email) VALUES (?)`;
+  const query = `INSERT INTO emailstable (email) VALUES (?)`;
   const emailValueSentFromLinkList = [email];
 
   connection.query(query, emailValueSentFromLinkList, (err, result) => {

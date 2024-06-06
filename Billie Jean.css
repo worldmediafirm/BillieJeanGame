@@ -36,14 +36,47 @@ body {
 }
 
 .game-container {
-  width: 1280px;
-  height: 720px;
+  width: 100%;
+  max-width: 1280px; /* Maximum width for larger screens */
+  height: calc(100vw * (720 / 1280)); /* Calculate height based on the width to maintain aspect ratio */
+  max-height: 720px; /* Maximum height to match the maximum width */
   margin: auto;
-  position: relative; /* Change to relative positioning */
+  position: relative;
   border: 5px solid rgb(224, 224, 224);
-  overflow: hidden;
+  overflow-y: auto;  
+  overflow-x: hidden; 
   background-position: center;
+  box-sizing: border-box; /* Include padding and border in the width and height */
 }
+
+/* Adjustments for tablets (e.g., iPads) */
+@media (max-width: 1024px) {
+  .game-container {
+      max-width: 800px; /* Reduced max-width */
+      height: calc(100vw * (450 / 800)); /* Adjust height relative to the new width */
+      max-height: 450px;
+  }
+}
+
+/* Adjustments for smaller tablets and large phones */
+@media (max-width: 768px) {
+  .game-container {
+      max-width: 600px;
+      height: calc(100vw * (338 / 600)); /* Adjust height relative to the new width */
+      max-height: 338px;
+  }
+}
+
+/* Adjustments for small phones */
+@media (max-width: 480px) {
+  .game-container {
+      max-width: 320px;
+      height: calc(100vw * (180 / 320)); /* Adjust height relative to the new width */
+      max-height: 180px;
+  }
+}
+
+
 
 
 .game-background {

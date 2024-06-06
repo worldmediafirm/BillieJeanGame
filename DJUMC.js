@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Load the image URL from local storage when the page loads
-    var storedImageUrl = localStorage.getItem('mainCharacterBackground');
+    var storedImageUrl = sessionStorage.getItem('mainCharacterBackground');
     var DJUMC = document.querySelector('.Main_Character');
     if (storedImageUrl && DJUMC) {
         // If there is a stored image URL, use it

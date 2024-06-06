@@ -11,7 +11,7 @@ function stopTheClockFunction(){
   clearInterval(timerInterval);
 }
 
-const gameDuration = 7; // Total game duration in seconds
+const gameDuration = 100; // Total game duration in seconds
 let currentTime = gameDuration;
 
 
@@ -43,16 +43,16 @@ GameLost();
 
 if (currentTime != 0 && healthBar.health >= 100 && deathBar.health < 100){
   stopTheClockFunction();
-  /*GameWon()
+  GameWon()
   .then(data =>{
     sendClientEmailData(data);
-  })*/
+  })
 }
   
-  //getClientEmailData(emailValue);
+ // getClientEmailData(emailValue);
 
 //if (GameWon().isEmailSubmitted === true){
-//let emailValue = GameWon().head.value;  
+//let emailValue = GameWon().head.value;  }
 
 
 
@@ -62,11 +62,11 @@ if (currentTime != 0 && healthBar.health >= 100 && deathBar.health < 100){
 
 
 // Check if the health bar is full
-/*if (health >= maxHealth) {
+if (health >= maxHealth) {
 // Handle the game logic when the health bar is full
 handleHealthBarFull();
 clearInterval(timerInterval);
-}*/
+}
 }, 1000);
 
 

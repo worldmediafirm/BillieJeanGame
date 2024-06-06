@@ -62,7 +62,7 @@ document.getElementById('confirmButton').addEventListener('click', function() {
     const imageElement = document.querySelector('#User_Pic_Upload img');
     if (imageElement) {
         // Store the image URL in local storage
-        localStorage.setItem('mainCharacterBackground', imageElement.src);
+        sessionStorage.setItem('mainCharacterBackground', imageElement.src);
         document.documentElement.style.setProperty('--main-character-bg', `url(${imageElement.src})`);
         console.log('Image URL stored in local storage:', imageElement.src);
     }
