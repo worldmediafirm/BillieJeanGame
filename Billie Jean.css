@@ -4,11 +4,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent black background */
+  background-color: rgba(0, 0, 0, 0.966); /* Semi-transparent black background */
   z-index: 1000; /* Ensures the overlay is above other elements */
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Courier New", Courier, monospace; /* Monospace font stack */
+  
 }
 
 #overlayContent {
@@ -16,17 +18,132 @@
   /* Optional: Additional styling for the content box like padding, background, etc. */
   /* Example: */
   padding: 20px;
-  background-color: white;
+  background-color: #F2EAD3;
   border-radius: 10px;
-  border: 2px solid #FF0000; /* Red border */
+  border: 4px solid #FDD2BF;
+  background-image: url('/graphic-assets/Gameplay-UI-Final.png');
+/* Set background size */
+background-size: cover; /* Cover the entire element */
+/* Set background position */
+background-position: center; /* Center the background image */
+border-radius: 75px;
+animation: border-color-animation 4s infinite; 
+
 }
 
-#uploadButton, #playDefault {
+@keyframes border-color-animation {
+  0% {
+      border-color: #A34A28; /* Red */
+  }
+  25% {
+      border-color: #F58B54; /* Green */
+  }
+  50% {
+      border-color: #DFDDC7; /* Blue */
+  }
+  75% {
+      border-color: #D1F5D3; /* Magenta */
+  }
+  100% {
+      border-color: #FDD2BF; /* Red (repeat) */
+  }
+}
+
+#playDefault {
+  /* Set the background image */
+
+padding: 10px 20px;
+margin: 10px;
+font-size: 16px;
+cursor: pointer;
+color: #fff;
+background-color: #151515;
+border-radius: 75px;
+height: 70px;
+top: -12px; 
+position: relative;
+
+
+}
+
+.uploadButton {
+  padding: 10px 20px;
+margin: 10px;
+font-size: 16px;
+cursor: pointer;
+color: #fff;
+background-color: #151515;
+border-radius: 75px;
+}
+
+.main-text {
+  font-size: 16px; /* Set the font size for the main text */
+}
+
+.subtext {
+  font-size: 9px; /* Set the font size for the smaller text */
+}
+
+#confirmButton{
   padding: 10px 20px;
   margin: 10px;
   font-size: 16px;
   cursor: pointer;
+  color: #fff;
+  background-color: #151515;
+  border-radius: 75px;
+  height: 70px;
+  position: relative;
+  left: 310px;
+  
+  
 }
+
+#retryButton{
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #151515;
+  border-radius: 75px;
+  height: 70px;
+  position: relative;
+  left: 270px;
+  
+  
+}
+
+.menu-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  
+}
+
+.Instructions {
+    text-align: center;
+  
+    background-color: #F2EAD3;
+    background-image: url('/graphic-assets/Game-Instructions.png');
+    background-size: cover;
+    background-position: center;
+    padding-bottom: calc(720 / 1280 * 100%);/* Maintain 16:9 aspect ratio (9 / 16 * 100) */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 4px solid #FDD2BF;
+    border-radius: 7px;
+    
+    
+  }
+
 
 
 
@@ -295,7 +412,62 @@ body {
     color: white;
     cursor: pointer;
   }
+
+  .Game-Title {
+    background-image: url('/graphic-assets/Game-Title-Header-Pic.png');
+    width: 800px;
+    height: 100px;
+    background-size: cover;
+  }
   
+  #spacer-i{
+    height:35px;
+  }
+
+  .clientImgBorder{
+    /*  border: 4px solid #EF962D; / */
+    background-color: #fff; /* Background color */
+    display: flex;
+  justify-content: center; /* Center the content horizontally */
+  width: 50%; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the element horizontally */
+  padding: 20px; /* Optional padding */
+  box-sizing: border-box; /* Include padding and border in the total width */
+  border-radius: 75px;
+  animation: bounceIn; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 2s; /* don't forget to set a duration! */
+  }
+
+  .User_Pic_Upload{
+      display: flex;
+      justify-content: center; /* Center items horizontally */
+      align-items: center; /* Center items vertically */
+      position: relative;
+  } 
+    
+      #loadingIndicator {
+        display: none;
+        position: fixed; /* Fixed position */
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Adjust the position to truly center it */
+        z-index: 1000; /* Make sure it's on top of other content */
+    }
+    
+    .loader {
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #9DC6A7; /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
   
 
   

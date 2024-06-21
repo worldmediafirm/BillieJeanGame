@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Load the image URL from local storage when the page loads
-    const storedImageUrl = localStorage.getItem('mainCharacterBackground');
+    const storedImageUrl = sessionStorage.getItem('mainCharacterBackground');
     if (storedImageUrl) {
         document.documentElement.style.setProperty('--main-character-bg', `url(${storedImageUrl})`);
     }
 });
 
-document.getElementById('uploadButton').addEventListener('click', function() {
+document.querySelector('.uploadButton').addEventListener('click', function() {
     document.getElementById('imageInput').click(); // Trigger the file input
 });
 
@@ -21,6 +21,9 @@ document.getElementById('imageInput').addEventListener('change', function(event)
 
         const reader = new FileReader();
         reader.onload = function(e) {
+            // Show the loading indicator
+            document.getElementById('loadingIndicator').style.display = 'block';
+
             fetch('http://localhost:6015/background-removal-image', {
                 method: 'POST',
                 headers: {
@@ -46,12 +49,21 @@ document.getElementById('imageInput').addEventListener('change', function(event)
                     displayArea.innerHTML = `<img src="${resizedImageDataUrl}" alt="Processed Image">`;
 
                     // Show confirmation buttons
+                    document.querySelector('.clientImgBorder').style.display = 'block';
+                    document.getElementById('User_Pic_Upload').style.display = 'block';
                     document.getElementById('confirmButton').style.display = 'block';
                     document.getElementById('retryButton').style.display = 'block';
+
+                    // Hide the loading indicator
+                    document.getElementById('loadingIndicator').style.display = 'none';
                 };
                 img.src = url;
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                // Hide the loading indicator
+                document.getElementById('loadingIndicator').style.display = 'none';
+            });
         };
         reader.readAsDataURL(file);
     }
@@ -79,25 +91,12 @@ document.getElementById('confirmButton').addEventListener('click', function() {
     document.querySelector('.menu-container').style.display = 'block';
 });
 
-//Event listener for default button;
-document.getElementById('playDefault').addEventListener('click', function() {
-
-    // Hide the overlay and the image confirmation area
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('User_Pic_Upload').style.display = 'none';
-
-    // Hide buttons after confirmation
-    document.getElementById('confirmButton').style.display = 'none';
-    document.getElementById('retryButton').style.display = 'none';
-
-    // Display the game start menu
-    document.querySelector('.menu-container').style.display = 'block';
-});
-
 // Event listener for retry button
 document.getElementById('retryButton').addEventListener('click', function() {
     document.getElementById('User_Pic_Upload').innerHTML = ''; // Clear the image preview
     document.getElementById('confirmButton').style.display = 'none';
     document.getElementById('retryButton').style.display = 'none';
-    document.getElementById('uploadButton').click(); // Trigger the file input again
+    document.querySelector('.clientImgBorder').style.display = 'none';
+
+    document.getElementById('imageInput').click(); // Trigger the file input again
 });
