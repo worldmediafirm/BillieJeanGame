@@ -100,3 +100,17 @@ document.getElementById('retryButton').addEventListener('click', function() {
 
     document.getElementById('imageInput').click(); // Trigger the file input again
 });
+
+// Event listener for default play button
+document.getElementById('playDefault').addEventListener('click', function() {
+    // Example actions when default play button is clicked
+    console.log('Default play button clicked.');
+  
+    // Hide the overlay and the image confirmation area (example)
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('User_Pic_Upload').style.display = 'none';
+  
+    // Show other interface elements or start game logic (adjust as per your app's needs)
+    document.querySelector('.menu-container').style.display = 'block';
+  });
+  

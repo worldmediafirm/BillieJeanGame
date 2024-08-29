@@ -11,7 +11,7 @@ function stopTheClockFunction(){
   clearInterval(timerInterval);
 }
 
-const gameDuration = 7; // Total game duration in seconds
+const gameDuration = 1111; // Total game duration in seconds
 let currentTime = gameDuration;
 
 

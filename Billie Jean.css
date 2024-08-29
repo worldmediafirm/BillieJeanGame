@@ -26,8 +26,7 @@
 background-size: cover; /* Cover the entire element */
 /* Set background position */
 background-position: center; /* Center the background image */
-border-radius: 75px;
-animation: border-color-animation 4s infinite; 
+
 
 }
 
@@ -125,9 +124,7 @@ border-radius: 75px;
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  
-}
+ }
 
 .Instructions {
     text-align: center;
@@ -138,11 +135,13 @@ border-radius: 75px;
     background-position: center;
     padding-bottom: calc(720 / 1280 * 100%);/* Maintain 16:9 aspect ratio (9 / 16 * 100) */
     overflow-y: auto; /* Enable vertical scrolling */
-    border: 4px solid #FDD2BF;
-    border-radius: 7px;
+    /*border: 4px solid #FDD2BF;*/
+    border-radius: 15px;
+    animation: border-color-animation 4s infinite; 
     
     
-  }
+
+}
 
 
 
@@ -160,10 +159,12 @@ body {
   margin: auto;
   position: relative;
   border: 5px solid rgb(224, 224, 224);
-  overflow-y: auto;  
+  overflow-y: hidden;  
   overflow-x: hidden; 
   background-position: center;
   box-sizing: border-box; /* Include padding and border in the width and height */
+  /*border-radius: 30px;*/
+  /*animation: border-color-animation 4s infinite; */
 }
 
 /* Adjustments for tablets (e.g., iPads) */
@@ -209,14 +210,19 @@ body {
   height: 170px;
 }
 
+
 .countdown{
-  color: white;
-  font-size: 36px;
+  color: #E6B53F;
+  font-size: 166px;
   font-weight: bold;
   position: absolute;
-  top: 50%;
+  top: 13%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-family: "Tiny5", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));   
 }
 
 
@@ -359,6 +365,18 @@ body {
     z-index: 3;
     
   }
+
+  .Enemy-Sprite-Container {
+    top: 219px;
+    left: 855px;
+    width: 220px; /* Width of each sprite frame */
+    height: 279px; /* Height of the sprite sheet */
+    background-image: url('graphic-assets/NEW-Enemy-Folder/Sprites/Enemy-Sprite-Sheet.png'); /* Path to your sprite sheet */
+    background-repeat: no-repeat;
+    background-size: auto 100%; /* Assuming vertical sprite sheet, adjust if horizontal */
+    position: absolute;
+  }
+  
   
 
    .enemies {
@@ -367,8 +385,61 @@ body {
     width: 64px;
     height: 64px;
     overflow: hidden;
+    /*z-index: ;*/
+  
+  }
+
+  .enemies-black {
+    background-image: url('/graphic-assets/enemy-main-black.png');
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+    animation: rotate 1.6s linear infinite;
     /*background-color: red;*/
   }
+
+  .enemies-red {
+    background-image: url('/graphic-assets/enemy-main-red.png');
+ 
+    /*background-color: red;*/
+  }
+
+  .doubt-Phrases {
+    position: absolute;
+   /* top: 1000px;
+    left: 660px;*/
+    width: 100px;
+    height: 50px;
+    overflow: hidden;
+    /*z-index: ;*/
+  }
+
+  .doubt-Phrases-initSpawn {
+    position: absolute;
+    top: 330px;
+    left:1060px;
+    overflow: hidden;
+  }
+
+
+  .collision-effect{
+    background-image: url('/graphic-assets/collide-with-player-asset.png');
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+  
 
   .game-over-pic {
     background-image: url('/graphic-assets/game-over-graphic.png');
@@ -376,6 +447,9 @@ body {
     width: 620px;
     height: 320px;
     overflow: hidden;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3)); 
+    animation: bounceIn; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s; 
     /*transform: translate(280%, 100%);*/
     /*z-index: 4;*/
   }
@@ -467,6 +541,33 @@ body {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+
+   .Start_Button{
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #151515;
+    border-radius: 75px;
+    height: 70px;
+    position: relative;
+    left: 145.5px;
+    width: 115px;
+  } 
+
+  .Sound_Toggle_Button{
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #151515;
+    border-radius: 75px;
+    height: 70px;
+    position: relative;
+    left: 205px;
+  }
     
   
 

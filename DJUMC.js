@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (DJUMC) {
         // Otherwise, set to the default image defined in your CSS or specify it here
         DJUMC.style.backgroundImage = 'url("graphic-assets/DJ-UMC-Main.png")';
+        DJUMC.style.backgroundRepeat = 'no-repeat';
+        DJUMC.style.backgroundSize = 'contain'; 
     }
 
 

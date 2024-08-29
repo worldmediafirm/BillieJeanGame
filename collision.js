@@ -1,29 +1,39 @@
+// collision.js
+// collision.js
+const customCollisionBoxes = {
+  '.Main_Character': { width: 100, height: 150 }, // Example sizes
+  '.doubt-Phrases': { width: 80, height: 40 } // Example sizes
+};
+
 function checkCollisionWithElement(element) {
+  var DJUMC = document.querySelector('.Main_Character');
+  var DJUMCRect = DJUMC.getBoundingClientRect();
+  var elementRect = element.getBoundingClientRect();
 
+  // Get custom collision box sizes
+  const DJUMCBox = customCollisionBoxes['.Main_Character'];
+  const elementBox = customCollisionBoxes['.doubt-Phrases'];
 
-var DJUMC = document.querySelector('.Main_Character');
-var DJUMCRect = DJUMC.getBoundingClientRect();
-var DJUMCLeft = DJUMCRect.left;
-var DJUMCTop = DJUMCRect.top;
-var DJUMCWidth = DJUMCRect.width;
-var DJUMCHeight = DJUMCRect.height;
+  // Calculate adjusted collision boxes
+  const adjustedDJUMCRect = {
+    left: DJUMCRect.left + (DJUMCRect.width - DJUMCBox.width) / 2,
+    right: DJUMCRect.left + (DJUMCRect.width + DJUMCBox.width) / 2,
+    top: DJUMCRect.top + (DJUMCRect.height - DJUMCBox.height) / 2,
+    bottom: DJUMCRect.top + (DJUMCRect.height + DJUMCBox.height) / 2
+  };
 
-var hitBoxLeft = DJUMCLeft;
-var hitBoxTop = DJUMCTop;
-var hitBoxRight = DJUMCLeft + DJUMCWidth;
-var hitBoxBottom = DJUMCTop + DJUMCHeight;
+  const adjustedElementRect = {
+    left: elementRect.left + (elementRect.width - elementBox.width) / 2,
+    right: elementRect.left + (elementRect.width + elementBox.width) / 2,
+    top: elementRect.top + (elementRect.height - elementBox.height) / 2,
+    bottom: elementRect.top + (elementRect.height + elementBox.height) / 2
+  };
 
-    var elementRect = element.getBoundingClientRect();
-    var elementCenterX = elementRect.left + elementRect.width / 2;
-    var elementCenterY = elementRect.top + elementRect.height / 2;
-  
-    if (
-      elementCenterX >= hitBoxLeft - 20||
-      elementCenterX <= hitBoxRight +20 ||
-      elementCenterY >= hitBoxTop - 20||
-      elementCenterY <= hitBoxBottom +20
-    ) {
-     deathBar.updateHealth(deathBar.health + 10);
-    }
-  }
-  
+  return (
+      adjustedElementRect.right > adjustedDJUMCRect.left &&
+      adjustedElementRect.left < adjustedDJUMCRect.right &&
+      adjustedElementRect.bottom > adjustedDJUMCRect.top &&
+      adjustedElementRect.top < adjustedDJUMCRect.bottom
+  );
+}
+

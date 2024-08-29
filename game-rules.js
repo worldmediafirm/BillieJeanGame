@@ -38,14 +38,7 @@ const frame2 = function() {
 
 
 
-/*fader1.onclick = function() {
-  health +=3.33; // Increment health by 10
-  if (health > maxHealth) {
-    health = maxHealth; // Ensure health doesn't exceed the maximum value
-  }
-  healthBar.updateHealth(health);
-};*/
 
-
+// Initializing frames for Health/Death Bars
 frame();
 frame2();
