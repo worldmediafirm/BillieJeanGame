@@ -1,8 +1,6 @@
 function GameLostPictureOverlay() {
   const gameOver = document.createElement('div');
   gameOver.className = 'game-over-pic';
-  gameOver.style.left = '330px'; // Starting from the top
-  gameOver.style.top = '0px';
   document.querySelector('.game-container').appendChild(gameOver);
   return gameOver;
 }
@@ -11,7 +9,7 @@ function stopTheClockFunction(){
   clearInterval(timerInterval);
 }
 
-const gameDuration = 1111; // Total game duration in seconds
+const gameDuration = 7; // Total game duration in seconds
 let currentTime = gameDuration;
 
 

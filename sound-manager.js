@@ -13,7 +13,8 @@ const SoundToggleObject = {
   addClickListener: function(buttonId) {
     const button = document.querySelector(buttonId);
     if (button) {
-      button.addEventListener('click', () => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
         this.toggleSound(); // Call the toggleSound method when the button is clicked
         console.log('Sound is now:', this.soundOn);
       });
@@ -49,7 +50,7 @@ const SoundToggleObject = {
   }
   };
 
-  SoundToggleObject.SendCurrentGameSoundStatusToServer(SoundToggleObject.createJSONFromSoundOnMethod());
+  //SoundToggleObject.SendCurrentGameSoundStatusToServer(SoundToggleObject.createJSONFromSoundOnMethod());
   SoundToggleObject.addClickListener('.Sound_Toggle_Button');
   
   // "TEST" value is false when server starts

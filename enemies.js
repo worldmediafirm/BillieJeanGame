@@ -1,4 +1,3 @@
-// enemies.js
 async function GetCurrentGameSoundStatusFromServer() {
     const response = await fetch('http://localhost:3000/CurrentSoundStatus');
     const RealTimeSoundStatus = await response.json();
@@ -79,7 +78,7 @@ async function GetCurrentGameSoundStatusFromServer() {
               if (checkCollisionWithElement(enemy)) {
                   enemy.remove();
                   this.createCollisionEffect();
-                  deathBar.updateHealth(deathBar.health + 10);
+                  deathBar.updateHealth(deathBar.health + 22);
               }
   
               if (parseInt(enemy.style.top) > 550 - 64) {

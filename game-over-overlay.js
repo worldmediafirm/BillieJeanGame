@@ -18,7 +18,7 @@ function GameWon() {
     // Create a button element
     const button = document.createElement('button');
     button.textContent = 'Submit';
-    button.addEventListener('click', handleButtonClick);
+    button.addEventListener('click', handleButtonClick_winner);
 
     // Append elements to the overlay
     overlay.appendChild(heading);
@@ -29,7 +29,7 @@ function GameWon() {
     const gameContainer = document.querySelector('.game-container');
     gameContainer.appendChild(overlay);
 
-    function handleButtonClick() {
+    function handleButtonClick_winner() {
       const playerEmail = input.value;
 
       // Check if the email is empty
@@ -57,6 +57,7 @@ function GameWon() {
 
       // Resolve the Promise with winnersList
       resolve(pendingPlayerEmail);
+      window.location.href = 'main.html';sdffffddfsddsdd
     }
   });
 }
@@ -89,24 +90,34 @@ var sendClientEmailData = async (data) =>{
       heading.textContent = 'YOU LOSE!!';
   
       // Create a button element
-      const button = document.createElement('button');
-      button.textContent = 'RETRY';
-      button.addEventListener('click', handleButtonClick);
-  
+      const retryButton = document.createElement('button');
+      retryButton.textContent = 'RETRY';
+      retryButton.addEventListener('click', handleButtonClick_retry);
+      retryButton.style.marginBottom = '12px';
+      retryButton.style.backgroundColor = '#FF9D00';
+
+      const goToHomepageButton = document.createElement('button');
+      goToHomepageButton.textContent = 'START OVER';
+      goToHomepageButton.addEventListener('click', handleButtonClick_hompg);
+      goToHomepageButton.style.backgroundColor = '#7B542F';
+
       // Append elements to the overlay
       overlay.appendChild(heading);
-      overlay.appendChild(button);
+      overlay.appendChild(retryButton);
+      overlay.appendChild(goToHomepageButton);
   
       // Append the overlay to the game-container
       const gameContainer = document.querySelector('.game-container');
       gameContainer.appendChild(overlay);
   
-      function handleButtonClick() {
+      function handleButtonClick_retry() {
         location.reload();
-        //StartGameFromBeginning(); --> Arbritray Function not yet delcared
+      };
+      function handleButtonClick_hompg(){
+        sessionStorage.removeItem('mainCharacterBackground');
+        window.location.href = 'main.html';
+      };
 
-      }
-    ;
   }
 
 

@@ -1,31 +1,33 @@
 class HealthBar {
-  constructor(x, y, w, h, maxHealth, color) {
+  constructor(maxHealth, color) {
+    this.x = 0;
+    this.y = 0;
+    this.w = 0;
+    this.h = 0;
+    this.health = maxHealth;
+    this.maxHealth = maxHealth;
+    this.maxWidth = 0;
+    this.color = color;
+  }
+
+  updateDimensions(x, y, w, h) {
     this.x = x;
     this.y = y;
-    this.w = w;
-    this.h = h;
-    this.maxHealth = maxHealth;
     this.maxWidth = w;
-    this.health = maxHealth;
-    this.color = color;
+    this.h = h;
+    this.w = (this.health / this.maxHealth) * this.maxWidth;
+  }
+
+  updateHealth(val) {
+    this.health = Math.min(val, this.maxHealth);
+    this.w = (this.health / this.maxHealth) * this.maxWidth;
   }
 
   show(context) {
     context.lineWidth = 4;
-    context.strokeStyle = "#333";
+    context.strokeStyle = "#FF9A00";
     context.fillStyle = this.color;
     context.fillRect(this.x, this.y, this.w, this.h);
     context.strokeRect(this.x, this.y, this.maxWidth, this.h);
-  }
-
-  updateHealth(val) {
-    if (val >= 0) {
-      this.health = val;
-      this.w = (this.health / this.maxHealth) * this.maxWidth;
-    }
-      // Check if the width exceeds the maximum width
-      if (this.w > this.maxWidth) {
-        this.w = this.maxWidth;
-      }
   }
 }

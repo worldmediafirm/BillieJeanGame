@@ -1,44 +1,53 @@
 const canvas = document.getElementById("health-bar");
 const canvas2 = document.getElementById("death-bar");
-const fader1 = document.querySelector('.fader1');
 const context = canvas.getContext("2d");
 const context2 = canvas2.getContext("2d");
-const width = canvas.width = 320;
-const height = canvas.height = 480;
-const deathWidth = canvas2.width = 320;
-const deathHeight = canvas2.height =480;
 
-canvas.style.marginTop = window.innerHeight / 2 - height / 2 + "px";
-canvas2.style.marginTop = window.innerHeight / 2 - deathHeight / 2 + "px";
+const maxHealth = 100;
+let health = 0;
 
-let health = 0; // Start at 0
-const maxHealth = 100; // Maximum health value
-const healthBarWidth = 200;
-const healthBarHeight = 30;
-const x = width / 2 - healthBarWidth / 2;
-const y = height / 2 - healthBarHeight / 2;
+const healthBar = new HealthBar(maxHealth, "#65CFF6");
+const deathBar = new HealthBar(maxHealth, "#D30708");
 
-const healthBar = new HealthBar(x, y, healthBarWidth, healthBarHeight, maxHealth, "#65CFF6");
-healthBar.updateHealth(health); // Set the initial health
+function resizeCanvasAndBars() {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
 
-const deathBar = new HealthBar(x, y, healthBarWidth, healthBarHeight, maxHealth, "#D30708");
-deathBar.updateHealth(health);
+  const canvasWidth = vw;
+  const canvasHeight = vh;
+  const barWidth = canvasWidth * 0.6;
+  const barHeight = canvasHeight * 0.05;
+  const x = canvasWidth / 2 - barWidth / 2;
+  const y = canvasHeight * 0.1;
 
-const frame = function() {
-  context.clearRect(0, 0, width, height);
+  canvas.width = canvasWidth;
+  canvas.height = canvasHeight;
+  canvas2.width = canvasWidth;
+  canvas2.height = canvasHeight;
+
+  healthBar.updateDimensions(x, y, barWidth, barHeight);
+  deathBar.updateDimensions(x, y, barWidth, barHeight);
+}
+
+function frame() {
+  context.clearRect(0, 0, canvas.width, canvas.height);
   healthBar.show(context);
   requestAnimationFrame(frame);
 }
 
-const frame2 = function() {
-  context2.clearRect(0, 0, deathWidth, deathHeight);
+function frame2() {
+  context2.clearRect(0, 0, canvas2.width, canvas2.height);
   deathBar.show(context2);
   requestAnimationFrame(frame2);
 }
 
+window.addEventListener("resize", () => {
+  resizeCanvasAndBars();
+});
 
+resizeCanvasAndBars();
+healthBar.updateHealth(health);
+deathBar.updateHealth(health);
 
-
-// Initializing frames for Health/Death Bars
 frame();
 frame2();

@@ -1,158 +1,17 @@
-#overlay {
-  position: fixed; /* Position it fixed over the entire screen */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.966); /* Semi-transparent black background */
-  z-index: 1000; /* Ensures the overlay is above other elements */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Courier New", Courier, monospace; /* Monospace font stack */
-  
-}
+html, body{
+  margin: 0;
+  padding: 0;
 
-#overlayContent {
-  text-align: center;
-  /* Optional: Additional styling for the content box like padding, background, etc. */
-  /* Example: */
-  padding: 20px;
-  background-color: #F2EAD3;
-  border-radius: 10px;
-  border: 4px solid #FDD2BF;
-  background-image: url('/graphic-assets/Gameplay-UI-Final.png');
-/* Set background size */
-background-size: cover; /* Cover the entire element */
-/* Set background position */
-background-position: center; /* Center the background image */
-
-
-}
-
-@keyframes border-color-animation {
-  0% {
-      border-color: #A34A28; /* Red */
-  }
-  25% {
-      border-color: #F58B54; /* Green */
-  }
-  50% {
-      border-color: #DFDDC7; /* Blue */
-  }
-  75% {
-      border-color: #D1F5D3; /* Magenta */
-  }
-  100% {
-      border-color: #FDD2BF; /* Red (repeat) */
-  }
-}
-
-#playDefault {
-  /* Set the background image */
-
-padding: 10px 20px;
-margin: 10px;
-font-size: 16px;
-cursor: pointer;
-color: #fff;
-background-color: #151515;
-border-radius: 75px;
-height: 70px;
-top: -12px; 
-position: relative;
-
-
-}
-
-.uploadButton {
-  padding: 10px 20px;
-margin: 10px;
-font-size: 16px;
-cursor: pointer;
-color: #fff;
-background-color: #151515;
-border-radius: 75px;
-}
-
-.main-text {
-  font-size: 16px; /* Set the font size for the main text */
-}
-
-.subtext {
-  font-size: 9px; /* Set the font size for the smaller text */
-}
-
-#confirmButton{
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  color: #fff;
-  background-color: #151515;
-  border-radius: 75px;
-  height: 70px;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* optional: prevents scrollbars */
   position: relative;
-  left: 310px;
-  
-  
-}
-
-#retryButton{
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  color: #fff;
-  background-color: #151515;
-  border-radius: 75px;
-  height: 70px;
-  position: relative;
-  left: 270px;
-  
-  
-}
-
-.menu-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  height: 50%;
-  background-color: rgba(0, 0, 0, 0.75);
-  display: flex;
-  justify-content: center;
-  align-items: center;
- }
-
-.Instructions {
-    text-align: center;
-  
-    background-color: #F2EAD3;
-    background-image: url('/graphic-assets/Game-Instructions.png');
-    background-size: cover;
-    background-position: center;
-    padding-bottom: calc(720 / 1280 * 100%);/* Maintain 16:9 aspect ratio (9 / 16 * 100) */
-    overflow-y: auto; /* Enable vertical scrolling */
-    /*border: 4px solid #FDD2BF;*/
-    border-radius: 15px;
-    animation: border-color-animation 4s infinite; 
-    
-    
-
-}
-
-
-
-
-
-body {
   background-color: black;
 }
 
 .game-container {
   width: 100%;
+  height: 100%;
   max-width: 1280px; /* Maximum width for larger screens */
   height: calc(100vw * (720 / 1280)); /* Calculate height based on the width to maintain aspect ratio */
   max-height: 720px; /* Maximum height to match the maximum width */
@@ -162,7 +21,10 @@ body {
   overflow-y: hidden;  
   overflow-x: hidden; 
   background-position: center;
-  box-sizing: border-box; /* Include padding and border in the width and height */
+  box-sizing: border-box; 
+ aspect-ratio: 16 / 9;   /* Include padding and border in the width and height */
+  display: flex;
+
   /*border-radius: 30px;*/
   /*animation: border-color-animation 4s infinite; */
 }
@@ -194,63 +56,59 @@ body {
   }
 }
 
+  .fader1 {
+    background-image: url('graphic-assets/Studio-Faders/Fader-1.png');
+    position: absolute;
+    width: 5%;
+    height:auto;
+    z-index: 2;
+    aspect-ratio: 66 / 80;
+    background-repeat: no-repeat; 
+    background-size: contain;
+    top: 83%;
+    left: 34%;
 
+     }
 
+  .fader2{
+    background-image: url('/graphic-assets/Studio-Faders/Fader-2.png');
+    position: absolute;
+    width: 5%;
+    height: auto;
+    z-index: 2;
+    aspect-ratio: 66 / 80;
+    background-repeat: no-repeat; 
+    background-size: contain;
+    top: 83%;
+    left: 43%;
+  }
 
-.game-background {
-  background-image: url('/graphic-assets/Background.png');
-  width: 1280px;
-  height: 550px;
- 
-}
+  .fader3{
+    background-image: url('/graphic-assets/Studio-Faders/Fader-3.png');
+    position: absolute;
+    width: 5%;
+    height: auto;
+    z-index: 2;
+    aspect-ratio: 66 / 80;
+    background-repeat: no-repeat; 
+    background-size: contain;
+    top: 83%;
+    left: 51.8%;
+  }
 
-.Gameplay-UI{
-  background-image: url('/graphic-assets/Gameplay-UI-Final.png');
-  width: 1280px;
-  height: 170px;
-}
-
-
-.countdown{
-  color: #E6B53F;
-  font-size: 166px;
-  font-weight: bold;
-  position: absolute;
-  top: 13%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: "Tiny5", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));   
-}
-
-
-.Main_Character {
-  background-image: var(--main-character-bg); /* Use the CSS variable */
-  height: 300px;
-  width: 374px;
-  background-repeat: no-repeat;
-  background-size: cover; /* Ensure the image covers the entire element */
-  background-position: center; /* Center the background in the element */
-  position: absolute;
-  transform: translate(110%, -156.8%);
-}
-
-
-
-.console {
-  background-image: url('/graphic-assets/Console.png');
-  width: 698px;
-  height:297px;
-  background-repeat: no-repeat; 
-  transform: translate(43%, -90%);
-
-}
-
-
-
-  @keyframes vibrate {
+  .fader4{
+    background-image: url('/graphic-assets/Studio-Faders/Fader-4.png');
+    position: absolute;
+    width: 5%;
+    height: auto;
+    z-index: 2;
+    aspect-ratio: 66 / 80;
+    background-repeat: no-repeat; 
+    background-size: contain;
+    top: 83%;
+    left: 60.5%;
+  }
+   @keyframes vibrate {
     0% { transform: translate(0, 0); }
     20% { transform: translate(-2px, -2px); }
     40% { transform: translate(2px, 2px); }
@@ -310,264 +168,231 @@ body {
       transform: translate(1170%, 700%);
     }
   }
-
-
-  .fader1 {
-    background-image: url('graphic-assets/Studio-Faders/Fader-1.png');
-    position: absolute;
-    width: 66px;
-    height: 80px;
-    transform-origin: center center;
-    transform: translate(662%, 736%);
-    z-index: 2;
-     }
-
-  .fader2{
-    background-image: url('/graphic-assets/Studio-Faders/Fader-2.png');
-    position: absolute;
-    width: 66px;
-    height: 80px;
-    transform-origin: center center;
-    transform: translate(830%, 736%);
-    z-index: 2;
-  }
-
-  .fader3{
-    background-image: url('/graphic-assets/Studio-Faders/Fader-3.png');
-    position: absolute;
-    width: 66px;
-    height: 80px;
-    transform-origin: center center;
-    transform: translate(1000%, 736%);
-    z-index: 2;
-  }
-
-  .fader4{
-    background-image: url('/graphic-assets/Studio-Faders/Fader-4.png');
-    position: absolute;
-    width: 66px;
-    height: 80px;
-    transform-origin: center center;
-    transform: translate(1170%, 736%);
-    z-index: 2;
-  }
   
+#health-bar {
+  position: absolute;
+  z-index: 3;
+  width: 66%;        /* Responsive width */
+  height: auto;      /* Maintain aspect ratio */
+  max-width: 300px;  /* Optional */
+  top: 5vh;          /* Position from top of screen */
+  left: 25%;         /* Center horizontally */
+  transform: translateX(-50%);
+}
 
-  #health-bar {
-    position: absolute;
-    transform: translate(10%, -50%);
-    z-index: 3;
-  }
   
   #death-bar {
     position: absolute;
-    transform: translate(280%, -50%);
     z-index: 3;
+    width: 66%;        /* Responsive width */
+    height: auto;      /* Maintain aspect ratio */
+    max-width: 300px;  /* Optional */
+    top: 5vh;          /* Position from top of screen */
+    right: 25%;     
+    transform: translateX(50%);
+    
     
   }
+  .countdown{
+  color: #E6B53F;
+  font-size: 10vw;
+  font-weight: bold;
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Tiny5", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));   
+}
 
-  .Enemy-Sprite-Container {
-    top: 219px;
-    left: 855px;
-    width: 220px; /* Width of each sprite frame */
-    height: 279px; /* Height of the sprite sheet */
-    background-image: url('graphic-assets/NEW-Enemy-Folder/Sprites/Enemy-Sprite-Sheet.png'); /* Path to your sprite sheet */
-    background-repeat: no-repeat;
-    background-size: auto 100%; /* Assuming vertical sprite sheet, adjust if horizontal */
-    position: absolute;
-  }
-  
-  
-
-   .enemies {
-    background-image: url('/graphic-assets/enemy-main.png');
-    position: absolute;
-    width: 64px;
-    height: 64px;
-    overflow: hidden;
-    /*z-index: ;*/
-  
-  }
-
-  .enemies-black {
-    background-image: url('/graphic-assets/enemy-main-black.png');
-    position: absolute;
-    width: 64px;
-    height: 64px;
-    overflow: hidden;
-    animation: rotate 1.6s linear infinite;
-    /*background-color: red;*/
-  }
-
-  .enemies-red {
-    background-image: url('/graphic-assets/enemy-main-red.png');
+.game-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1280 / 550;
+  background-image: url('/graphic-assets/Background.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
  
-    /*background-color: red;*/
-  }
+}
 
-  .doubt-Phrases {
-    position: absolute;
-   /* top: 1000px;
-    left: 660px;*/
-    width: 100px;
-    height: 50px;
-    overflow: hidden;
-    /*z-index: ;*/
-  }
-
-  .doubt-Phrases-initSpawn {
-    position: absolute;
-    top: 330px;
-    left:1060px;
-    overflow: hidden;
-  }
+.Gameplay-UI{
+  background-image: url('/graphic-assets/Gameplay-UI-Final.png');
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 77%;
+  aspect-ratio: 1277 / 171;
+  background-repeat: no-repeat; 
+  background-size: contain;
+  z-index: 1;
 
 
-  .collision-effect{
-    background-image: url('/graphic-assets/collide-with-player-asset.png');
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    overflow: hidden;
-  }
+}
 
-  @keyframes rotate {
-    from {
-      transform: translate(-50%, -50%) rotate(0deg);
-    }
-    to {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
-  }
+.Enemy-Sprite-Container {
+  position: absolute;
+  top: 52.3%;
+  left: 77%;
+  transform: translate(-50%, -50%);
+
+  /* IMPORTANT: this should be ONE FRAME width, not 100vw */
+  width: clamp(60px, 12vw, 220px);
+  aspect-ratio: 220 / 270;
+
+  background-image: url('/graphic-assets/NEW-Enemy-Folder/Sprites/Enemy-Sprite-Sheet.png');
+  background-repeat: no-repeat;
+
+  /* sheet is 14 frames wide, 1 frame tall */
+  background-size: calc(100% * 14) 100%;
+  background-position: 0 0;
+
+  animation: enemyWalk 1s steps(13) infinite;
+  z-index: 2;
+}
+
+@keyframes enemyWalk {
+  from { background-position: 0% 0; }
+  to   { background-position: 100% 0; }
+}
+
+
+.Main_Character {
+  top: 33%;
+  left: 22%;
+  /*background-image: var(--main-character-bg);*/ /* Use the CSS variable */
+  height: 44%;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover; /* Ensure the image covers the entire element */
+  background-position: center; /* Center the background in the element */
+  position: absolute;
   
+}
 
-  .game-over-pic {
-    background-image: url('/graphic-assets/game-over-graphic.png');
-    position: absolute;
-    width: 620px;
-    height: 320px;
-    overflow: hidden;
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3)); 
-    animation: bounceIn; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 2s; 
-    /*transform: translate(280%, 100%);*/
-    /*z-index: 4;*/
-  }
+/* Default DJ UMC */
+.Main_Character.default-skin {
+  background-size: contain; /* or cover if you prefer for your art */
+}
 
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-    color: white;
-    font-family: Arial, sans-serif;
-  }
-  
-  .overlay h2 {
-    margin-bottom: 10px;
-  }
-  
-  .overlay input {
-    padding: 5px;
-    margin-bottom: 10px;
-  }
-  
-  .overlay button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
+/* User uploaded */
+.Main_Character.user-skin {
+  background-size: contain; 
+  height: 52% /* almost always best for cutouts */
+}
 
-  .Game-Title {
-    background-image: url('/graphic-assets/Game-Title-Header-Pic.png');
-    width: 800px;
-    height: 100px;
-    background-size: cover;
-  }
-  
-  #spacer-i{
-    height:35px;
-  }
+.console {
+  background-image: url('/graphic-assets/Console.png');
+  position: absolute;
+  width: 66%;
+  height: auto;
+  aspect-ratio: 698 / 97;
+  background-repeat: no-repeat; 
+  background-size: contain;
+  background-position: center;
+  top: 61%;
+  left: 19%;
+ 
 
-  .clientImgBorder{
-    /*  border: 4px solid #EF962D; / */
-    background-color: #fff; /* Background color */
-    display: flex;
-  justify-content: center; /* Center the content horizontally */
-  width: 50%; /* Adjust the width as needed */
-  margin: 0 auto; /* Center the element horizontally */
-  padding: 20px; /* Optional padding */
-  box-sizing: border-box; /* Include padding and border in the total width */
-  border-radius: 75px;
-  animation: bounceIn; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 2s; /* don't forget to set a duration! */
-  }
+}
 
-  .User_Pic_Upload{
-      display: flex;
-      justify-content: center; /* Center items horizontally */
-      align-items: center; /* Center items vertically */
-      position: relative;
-  } 
-    
-      #loadingIndicator {
-        display: none;
-        position: fixed; /* Fixed position */
-        top: 50%; /* Center vertically */
-        left: 50%; /* Center horizontally */
-        transform: translate(-50%, -50%); /* Adjust the position to truly center it */
-        z-index: 1000; /* Make sure it's on top of other content */
-    }
-    
-    .loader {
-        border: 16px solid #f3f3f3; /* Light grey */
-        border-top: 16px solid #9DC6A7; /* Blue */
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        animation: spin 2s linear infinite;
-    }
-    
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
 
-   .Start_Button{
-    padding: 10px 20px;
-    margin: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    color: #fff;
-    background-color: #151515;
-    border-radius: 75px;
-    height: 70px;
-    position: relative;
-    left: 145.5px;
-    width: 115px;
-  } 
+/*HTML Elements that are declared by javascript not in the original HTML file*/
+ 
+/* Responsive enemy sizing: scales with screen, clamped to sane min/max */
+:root{
+  --enemy-size: clamp(36px, 6vw, 64px);
+}
 
-  .Sound_Toggle_Button{
-    padding: 10px 20px;
-    margin: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    color: #fff;
-    background-color: #151515;
-    border-radius: 75px;
-    height: 70px;
-    position: relative;
-    left: 205px;
-  }
+.enemies,
+.enemies-black,
+.enemies-red{
+  position: absolute;
+  width: var(--enemy-size);
+  aspect-ratio: 1 / 1;     /* keeps square */
+  height: auto;            /* height derived from aspect-ratio */
+  overflow: hidden;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; /* prevents cropping/stretching */
+
+  /* Optional: helps performance when moving them a lot */
+  will-change: transform, left, top;
+}
+
+/* Assign unique sprites */
+.enemies{
+  background-image: url('/graphic-assets/enemy-main.png');
+}
+
+.enemies-black{
+  background-image: url('/graphic-assets/enemy-main-black.png');
+  animation: rotate 1.6s linear infinite;
+}
+
+.enemies-red{
+  background-image: url('/graphic-assets/enemy-main-red.png');
+}
+
+:root{
+  /* Responsive widths */
+  --doubt-main-width: clamp(40px, 18vw, 100px);
+  --doubt-init-width: clamp(40px, 7vw, 100px);
+}
+
+/* Main animated sprite (500 x 50 frame sheet) */
+.doubt-Phrases{
+  position: absolute;
+  width: var(--doubt-main-width);
+  aspect-ratio: 2 / 1; /* maintains 500:50 ratio */
+
+  overflow: hidden;
+
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 500%; /* 5 frames across the sprite sheet */
+
+  will-change: transform, left, top;
+}
+
+/* Smaller pre-spawn sprite (100 x 50 frame) */
+.doubt-Phrases-initSpawn{
+  position: absolute;
+  width: var(--doubt-init-width);
+  aspect-ratio: 2 / 1; /* maintains 100:50 ratio */
+
+  overflow: hidden;
+
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 500%;
+
+  will-change: transform, left, top;
+}
+
+
+.game-over-pic{
+  position: absolute;
+  left: 50%;
+  top: 33%;
+  transform: translate(-50%, -50%);
+
+  width: min(55vw, 620px);
+  aspect-ratio: 620 / 320;
+
+  background: url('/graphic-assets/game-over-graphic.png') center/contain no-repeat;
+  overflow: hidden;
+}
+
+
+
+
     
   
 

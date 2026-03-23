@@ -1,8 +1,8 @@
 // collision.js
 // collision.js
 const customCollisionBoxes = {
-  '.Main_Character': { width: 100, height: 150 }, // Example sizes
-  '.doubt-Phrases': { width: 80, height: 40 } // Example sizes
+  '.Main_Character': { width: 200, height: 274 }, // Example sizes
+  '.doubt-Phrases': { width: 66, height: 33 } // Example sizes
 };
 
 function checkCollisionWithElement(element) {

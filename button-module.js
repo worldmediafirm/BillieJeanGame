@@ -5,31 +5,50 @@ class ButtonModule {
     this.fader3 = document.querySelector(".fader3");
     this.fader4 = document.querySelector(".fader4");
 
-   // this.faderElements = [this.fader1, this.fader2, this.fader3, this.fader4];
-
     this.firstClickEvent = null;
     this.secondClickEvent = null;
 
     this.addClickHandlers();
+    this.addKeyboardSupport(); // <- Add this line
   }
 
   addClickHandlers() {
-    this.fader1.onclick = () => {
-      this.handleFaderClick("fader1");
-      this.animateFaders1();
+    const bind = (element, name, animateFn) => {
+      if (element) {
+        element.onclick = () => {
+          this.handleFaderClick(name);
+          animateFn();
+        };
+      }
     };
-    this.fader2.onclick = () => {
-      this.handleFaderClick("fader2");
-      this.animateFaders2();
-    };
-    this.fader3.onclick = () => {
-      this.handleFaderClick("fader3");
-      this.animateFaders3();
-    };
-    this.fader4.onclick = () => {
-      this.handleFaderClick("fader4");
-      this.animateFaders4();
-    };
+
+    bind(this.fader1, "fader1", this.animateFaders1.bind(this));
+    bind(this.fader2, "fader2", this.animateFaders2.bind(this));
+    bind(this.fader3, "fader3", this.animateFaders3.bind(this));
+    bind(this.fader4, "fader4", this.animateFaders4.bind(this));
+  }
+
+  addKeyboardSupport() {
+    document.addEventListener("keydown", (e) => {
+      switch (e.key.toLowerCase()) {
+        case 'a':
+          this.handleFaderClick("fader1");
+          this.animateFaders1();
+          break;
+        case 's':
+          this.handleFaderClick("fader2");
+          this.animateFaders2();
+          break;
+        case 'd':
+          this.handleFaderClick("fader3");
+          this.animateFaders3();
+          break;
+        case 'f':
+          this.handleFaderClick("fader4");
+          this.animateFaders4();
+          break;
+      }
+    });
   }
 
   handleFaderClick(faderEvent) {
@@ -51,30 +70,29 @@ class ButtonModule {
   }
 
   animateFaders1() {
-      this.fader1.classList.add('moveUpAnimation1');
-      setTimeout(() => {
-        this.fader1.classList.remove('moveUpAnimation1');
-      }, 1000);
+    this.animate(this.fader1, 'moveUpAnimation1');
   }
+
   animateFaders2() {
-    this.fader2.classList.add('moveUpAnimation2');
-    setTimeout(() => {
-      this.fader2.classList.remove('moveUpAnimation2');
-    }, 1000);
+    this.animate(this.fader2, 'moveUpAnimation2');
   }
+
   animateFaders3() {
-    this.fader3.classList.add('moveUpAnimation3');
-    setTimeout(() => {
-      this.fader3.classList.remove('moveUpAnimation3');
-    }, 1000);
+    this.animate(this.fader3, 'moveUpAnimation3');
   }
+
   animateFaders4() {
-    this.fader4.classList.add('moveUpAnimation4');
+    this.animate(this.fader4, 'moveUpAnimation4');
+  }
+
+  animate(element, className) {
+    if (!element) return;
+    element.classList.add(className);
     setTimeout(() => {
-      this.fader4.classList.remove('moveUpAnimation4');
+      element.classList.remove(className);
     }, 1000);
   }
 }
 
-// Usage example
+// Usage
 const buttonModule = new ButtonModule();

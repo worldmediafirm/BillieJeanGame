@@ -51,7 +51,7 @@ res.json(PostSoundStatusFromObject); // Send the current sound status
 
 
 
-app.post('/upload-image', upload.single('image'), (req, res) => {
+/*app.post('/upload-image', upload.single('image'), (req, res) => {
   if (req.file) {
       // The uploaded file is available as a buffer
       const imageBuffer = req.file.buffer;
@@ -64,8 +64,7 @@ app.post('/upload-image', upload.single('image'), (req, res) => {
   } else {
       res.status(400).json({ message: 'File upload failed.' });
   }
-});
-
+}); */
 
 
 
