@@ -1,126 +1,57 @@
-const winnersList = new WinnersQueue();
-
 function GameWon() {
-  return new Promise((resolve, reject) => {
-    // Create the overlay element
-    const overlay = document.createElement('div');
-    overlay.classList.add('overlay');
+  const winOverlay = document.createElement('div');
+  winOverlay.classList.add('win-overlay');
 
-    // Create a heading element
-    const heading = document.createElement('h2');
-    heading.textContent = 'YOU WON!!';
+  const winHeading = document.createElement('h2');
+  winHeading.classList.add('win-heading');
+  winHeading.textContent = 'YOU WON!!';
 
-    // Create an input element
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.placeholder = 'Enter your email';
+  const winButton = document.createElement('button');
+  winButton.classList.add('win-button');
+  winButton.textContent = 'PLAY AGAIN';
+  winButton.addEventListener('click', handleButtonClick_winner);
 
-    // Create a button element
-    const button = document.createElement('button');
-    button.textContent = 'Submit';
-    button.addEventListener('click', handleButtonClick_winner);
+  winOverlay.appendChild(winHeading);
+  winOverlay.appendChild(winButton);
 
-    // Append elements to the overlay
-    overlay.appendChild(heading);
-    overlay.appendChild(input);
-    overlay.appendChild(button);
+  document.body.appendChild(winOverlay);
 
-    // Append the overlay to the game-container
-    const gameContainer = document.querySelector('.game-container');
-    gameContainer.appendChild(overlay);
-
-    function handleButtonClick_winner() {
-      const playerEmail = input.value;
-
-      // Check if the email is empty
-      if (playerEmail.trim() === '') {
-        alert('Please enter a valid email.');
-        return;
-      }
-
-      // Check if the email has already been submitted
-      if (winnersList.isEmailSubmitted) {
-        alert('Email has already been submitted.');
-        return;
-      }
-
-      // Check if the email already exists in the list
-      if (winnersList.hasEmail(playerEmail)) {
-        alert('Email already exists in the list.');
-        return;
-      }
-
-      winnersList.enqueue(playerEmail);
-      input.value = '';
-      console.log(winnersList.head.value);
-      let pendingPlayerEmail = winnersList.head.value;
-
-      // Resolve the Promise with winnersList
-      resolve(pendingPlayerEmail);
-      window.location.href = 'main.html';sdffffddfsddsdd
-    }
-  });
+  function handleButtonClick_winner() {
+    sessionStorage.removeItem('mainCharacterBackground');
+    window.location.href = 'main.html';
+  }
 }
 
-var sendClientEmailData = async (data) =>{
+function GameLost() {
+  const lossOverlay = document.createElement('div');
+  lossOverlay.classList.add('loss-overlay');
 
-    
-      await fetch('http://localhost:3000/winnersEmail', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'text/plain'
-        },
-        body: data,
-    })
-    .then(response => response.text()) // Convert the response to text
-    .then(result => {
-        console.log(result); // Handle the response from the server
-    });
+  const lossHeading = document.createElement('h2');
+  lossHeading.classList.add('loss-heading');
+  lossHeading.textContent = 'YOU LOSE!!';
+
+  const retryButton = document.createElement('button');
+  retryButton.classList.add('loss-retry-button');
+  retryButton.textContent = 'RETRY';
+  retryButton.addEventListener('click', handleButtonClick_retry);
+
+  const goToHomepageButton = document.createElement('button');
+  goToHomepageButton.classList.add('loss-home-button');
+  goToHomepageButton.textContent = 'START OVER';
+  goToHomepageButton.addEventListener('click', handleButtonClick_hompg);
+
+  lossOverlay.appendChild(lossHeading);
+  lossOverlay.appendChild(retryButton);
+  lossOverlay.appendChild(goToHomepageButton);
+
+  document.body.appendChild(lossOverlay);
+
+  function handleButtonClick_retry() {
+    location.reload();
   }
 
-  function GameLost() {
-    
-      // Create the overlay element
-      const overlay = document.createElement('div');
-      overlay.classList.add('overlay');
-  
-      // Create a heading element
-      const heading = document.createElement('h2');
-      heading.textContent = 'YOU LOSE!!';
-  
-      // Create a button element
-      const retryButton = document.createElement('button');
-      retryButton.textContent = 'RETRY';
-      retryButton.addEventListener('click', handleButtonClick_retry);
-      retryButton.style.marginBottom = '12px';
-      retryButton.style.backgroundColor = '#FF9D00';
-
-      const goToHomepageButton = document.createElement('button');
-      goToHomepageButton.textContent = 'START OVER';
-      goToHomepageButton.addEventListener('click', handleButtonClick_hompg);
-      goToHomepageButton.style.backgroundColor = '#7B542F';
-
-      // Append elements to the overlay
-      overlay.appendChild(heading);
-      overlay.appendChild(retryButton);
-      overlay.appendChild(goToHomepageButton);
-  
-      // Append the overlay to the game-container
-      const gameContainer = document.querySelector('.game-container');
-      gameContainer.appendChild(overlay);
-  
-      function handleButtonClick_retry() {
-        location.reload();
-      };
-      function handleButtonClick_hompg(){
-        sessionStorage.removeItem('mainCharacterBackground');
-        window.location.href = 'main.html';
-      };
-
+  function handleButtonClick_hompg() {
+    sessionStorage.removeItem('mainCharacterBackground');
+    window.location.href = 'main.html';
   }
-
-
-
-// Function to handle button click event
-
+}

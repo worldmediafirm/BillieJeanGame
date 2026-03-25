@@ -1,78 +1,72 @@
 function GameLostPictureOverlay() {
+  console.log('GameLostPictureOverlay() fired');
+
   const gameOver = document.createElement('div');
   gameOver.className = 'game-over-pic';
   document.querySelector('.game-container').appendChild(gameOver);
   return gameOver;
 }
 
-function stopTheClockFunction(){
+
+function stopTheClockFunction() {
+  console.log('stopTheClockFunction() fired');
   clearInterval(timerInterval);
 }
 
-const gameDuration = 7; // Total game duration in seconds
+const gameDuration = 7;
 let currentTime = gameDuration;
-
 
 const timer = document.createElement('div');
 timer.classList.add('countdown');
 document.querySelector('.game-container').appendChild(timer);
 
+let endStateTriggered = false;
 
 const timerInterval = setInterval(() => {
-// Update the timer display
-timer.textContent = currentTime;
+  console.log('tick', {
+    currentTime,
+    healthBarHealth: healthBar?.health,
+    deathBarHealth: deathBar?.health,
+    health,
+    maxHealth,
+    endStateTriggered
+  });
 
+  if (endStateTriggered) return;
 
-// Decrement the time
-currentTime--;
+  timer.textContent = currentTime;
+  currentTime--;
 
+  // LOSS
+  if (currentTime <= 0 || deathBar.health >= 100) {
+    console.log('LOSS branch hit');
 
-// Check if the timer has run out
-if (currentTime === 0 || deathBar.health >= 100) {
-// Handle the game logic when the timer runs out
-stopTheClockFunction();
-GameLostPictureOverlay();
-setInterval(() => {
-GameLost();  
-}, 1700);
+    endStateTriggered = true;
+    stopTheClockFunction();
+    GameLostPictureOverlay();
 
-//setTimeout(function(){GameLost();}, 1500);
-}
+    setTimeout(() => {
+      console.log('Calling GameLost() now');
+      GameLost();
+    }, 1700);
 
-if (currentTime != 0 && healthBar.health >= 100 && deathBar.health < 100){
-  stopTheClockFunction();
-  GameWon()
-  .then(data =>{
-    sendClientEmailData(data);
-  })
-}
-  
- // getClientEmailData(emailValue);
+    return;
+  }
 
-//if (GameWon().isEmailSubmitted === true){
-//let emailValue = GameWon().head.value;  }
+  // WIN
+  if (healthBar.health >= 100 && deathBar.health < 100) {
+    console.log('WIN branch hit');
 
+    endStateTriggered = true;
+    stopTheClockFunction();
+    GameWon();
+    return;
+  }
 
-
- 
-
-
-
-
-// Check if the health bar is full
-if (health >= maxHealth) {
-// Handle the game logic when the health bar is full
-handleHealthBarFull();
-clearInterval(timerInterval);
-}
+  if (health >= maxHealth) {
+    console.log('health >= maxHealth branch hit');
+    handleHealthBarFull();
+    clearInterval(timerInterval);
+    return;
+  }
 }, 1000);
-
-
-
-
-timerInterval;
-
-
-
-
-

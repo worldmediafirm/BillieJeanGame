@@ -390,6 +390,65 @@ html, body{
   overflow: hidden;
 }
 
+.win-overlay,
+.loss-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.win-heading,
+.loss-heading {
+  font-family: Arial, sans-serif;
+  font-size: 2.5rem;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 24px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.win-button,
+.loss-retry-button,
+.loss-home-button {
+  min-width: 180px;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 6px 0;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.win-button:hover,
+.loss-retry-button:hover,
+.loss-home-button:hover {
+  transform: scale(1.04);
+  opacity: 0.95;
+}
+
+.win-button {
+  background-color: #1f9d55;
+}
+
+.loss-retry-button {
+  background-color: #ff9d00;
+}
+
+.loss-home-button {
+  background-color: #7b542f;
+}
+
 
 
 
