@@ -73,4 +73,4 @@ def process_image():
     return send_file(output_io, mimetype='image/png', as_attachment=False)
 
 if __name__ == '__main__':
-    app.run(port=6015, use_reloader=False)
+    app.run(host='0.0.0.0', port=6015, use_reloader=False)
