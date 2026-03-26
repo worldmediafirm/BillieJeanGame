@@ -28,12 +28,12 @@ const mysql = require('mysql2');
 //--------------------------------------------------------------    
 
 // Create a connection to the MariaDB database
-const connection = mysql.createConnection({
+/*const connection = mysql.createConnection({
   host: '127.0.0.1',
   user: 'root',
   password: 'L@Z3r60466',
   database: 'winnersEmailList',
-});
+});*/
 
 var PostSoundStatusFromObject = {};
 
@@ -69,7 +69,7 @@ res.json(PostSoundStatusFromObject); // Send the current sound status
 
 
 
-app.post('/winnersEmail', (req, res) => {
+/*app.post('/winnersEmail', (req, res) => {
   var email = req.body;
   // Process the data on the server
   console.log(email);
@@ -91,4 +91,4 @@ function addRecordToDatabase(email) {
     }
     connection.end(); // Close the database connection
   });
-}
+}8*/
