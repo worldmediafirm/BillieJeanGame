@@ -21,6 +21,10 @@ CORS(app)
 
 print('🚀 Flask app running on port 6015. Listening for images...')
 
+@app.route("/")
+def home():
+    return "Flask via Gunicorn is running"
+
 @app.route('/background-removal-image', methods=['POST'])
 def process_image():
     # Get image from POST body
