@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
         reader.onload = function (e) {
             document.getElementById('loadingIndicator').style.display = 'block';
 
-            fetch('http://api/background-removal-image', {
+            fetch('/api/background-removal-image', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ image: e.target.result })
