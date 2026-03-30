@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const file = event.target.files[0];
         if (!file) return;
 
-        const maxSize = 5 * 1024 * 1024; // 5MB
-        if (file.size > maxSize) {
-            alert('File size exceeds 5MB; Resize or try another picture');
+        const hardMaxSize = 100 * 1024 * 1024; // 100MB absolute ceiling
+        if (file.size > hardMaxSize) {
+            alert('File size exceeds 100MB. Please choose a smaller picture.');
             resetInput();
             return;
         }
@@ -36,8 +36,11 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('loadingIndicator').style.display = 'block';
 
         try {
+            // Normalize the image BEFORE sending it to Flask/rembg
+            const processedUploadFile = await normalizeImageForUpload(file);
+
             const formData = new FormData();
-            formData.append('image', file);
+            formData.append('image', processedUploadFile, processedUploadFile.name || 'upload.jpg');
 
             const response = await fetch('/api/background-removal-image', {
                 method: 'POST',
@@ -222,5 +225,96 @@ document.addEventListener('DOMContentLoaded', function () {
     function resetInput() {
         const input = document.getElementById('imageInput');
         if (input) input.value = '';
+    }
+
+    async function normalizeImageForUpload(file) {
+        // If already reasonable, send as-is
+        const maxUploadBytes = 8 * 1024 * 1024; // target max upload size ~8MB
+        const maxDimension = 1800; // max width/height before rembg
+
+        const needsResize = await imageNeedsResize(file, maxUploadBytes, maxDimension);
+
+        if (!needsResize) {
+            return file;
+        }
+
+        const img = await loadImageFromFile(file);
+
+        let { width, height } = img;
+
+        const scale = Math.min(1, maxDimension / Math.max(width, height));
+        const targetWidth = Math.max(1, Math.round(width * scale));
+        const targetHeight = Math.max(1, Math.round(height * scale));
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        if (!ctx) {
+            throw new Error('Canvas context could not be created for image normalization.');
+        }
+
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+
+        ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+
+        // JPEG is fine before rembg; rembg will return PNG after background removal
+        let quality = 0.88;
+        let blob = await canvasToBlob(canvas, 'image/jpeg', quality);
+
+        // Try stepping quality down if still too large
+        while (blob.size > maxUploadBytes && quality > 0.55) {
+            quality -= 0.08;
+            blob = await canvasToBlob(canvas, 'image/jpeg', quality);
+        }
+
+        const safeName = (file.name || 'upload')
+            .replace(/\.[^.]+$/, '')
+            .replace(/[^\w-]+/g, '_');
+
+        return new File([blob], `${safeName}.jpg`, {
+            type: 'image/jpeg',
+            lastModified: Date.now()
+        });
+    }
+
+    async function imageNeedsResize(file, maxUploadBytes, maxDimension) {
+        if (file.size > maxUploadBytes) {
+            return true;
+        }
+
+        const img = await loadImageFromFile(file);
+        return img.width > maxDimension || img.height > maxDimension;
+    }
+
+    function loadImageFromFile(file) {
+        return new Promise((resolve, reject) => {
+            const objectUrl = URL.createObjectURL(file);
+            const img = new Image();
+
+            img.onload = function () {
+                URL.revokeObjectURL(objectUrl);
+                resolve(img);
+            };
+
+            img.onerror = function () {
+                URL.revokeObjectURL(objectUrl);
+                reject(new Error('Selected image could not be loaded.'));
+            };
+
+            img.src = objectUrl;
+        });
+    }
+
+    function canvasToBlob(canvas, type, quality) {
+        return new Promise((resolve, reject) => {
+            canvas.toBlob((blob) => {
+                if (!blob) {
+                    reject(new Error('Canvas export failed.'));
+                    return;
+                }
+                resolve(blob);
+            }, type, quality);
+        });
     }
 });
