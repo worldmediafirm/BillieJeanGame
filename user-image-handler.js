@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     let flaskProcessedImageDataUrl = null;
+    let currentPreviewBlobUrl = null;
 
     const storedImageUrl = sessionStorage.getItem('mainCharacterBackground');
     if (storedImageUrl) {
@@ -15,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('imageInput')?.addEventListener('change', async function (event) {
         const file = event.target.files[0];
         if (!file) return;
+
+        cleanupPreviewBlobUrl();
 
         const hardMaxSize = 100 * 1024 * 1024;
         if (file.size > hardMaxSize) {
@@ -83,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 );
             }
 
+            cleanupPreviewBlobUrl();
             hideOverlay();
             showMenu();
             resetInput();
@@ -97,6 +101,8 @@ document.addEventListener('DOMContentLoaded', function () {
         event.stopPropagation();
 
         flaskProcessedImageDataUrl = null;
+        cleanupPreviewBlobUrl();
+
         document.getElementById('User_Pic_Upload').innerHTML = '';
         document.querySelector('.clientImgBorder').style.display = 'none';
         document.getElementById('confirmButton').style.display = 'none';
@@ -114,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.setItem('characterMode', 'default');
         sessionStorage.removeItem('mainCharacterBackground');
 
+        cleanupPreviewBlobUrl();
         hideOverlay();
         showMenu();
         resetInput();
@@ -127,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
             throw new Error('Preview elements are missing from the page.');
         }
 
-        const blobUrl = URL.createObjectURL(blob);
+        currentPreviewBlobUrl = URL.createObjectURL(blob);
 
         previewBox.style.display = 'flex';
         previewTarget.style.display = 'flex';
@@ -135,31 +142,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const previewImg = document.createElement('img');
         previewImg.alt = 'Processed Image';
-        previewImg.style.width = '100%';
-        previewImg.style.height = '100%';
-        previewImg.style.objectFit = 'cover';
-        previewImg.style.display = 'block';
+        previewImg.src = currentPreviewBlobUrl;
 
         previewImg.onload = async function () {
             try {
-                const loadedImg = await loadImageFromUrl(blobUrl);
+                const loadedImg = await loadImageFromUrl(currentPreviewBlobUrl);
                 flaskProcessedImageDataUrl = await createReducedGameplayImage(loadedImg);
                 showOverlay();
+                console.log('preview loaded', previewImg.naturalWidth, previewImg.naturalHeight);
             } catch (error) {
-                URL.revokeObjectURL(blobUrl);
-                throw error;
+                throw new Error(`Gameplay image creation failed: ${error.message}`);
             }
         };
 
         previewImg.onerror = function () {
-            URL.revokeObjectURL(blobUrl);
             document.getElementById('loadingIndicator').style.display = 'none';
             alert('The processed image preview could not be displayed on this device.');
             resetInput();
         };
 
-        previewImg.src = blobUrl;
         previewTarget.appendChild(previewImg);
+    }
+
+    function cleanupPreviewBlobUrl() {
+        if (currentPreviewBlobUrl) {
+            URL.revokeObjectURL(currentPreviewBlobUrl);
+            currentPreviewBlobUrl = null;
+        }
     }
 
     function showOverlay() {
@@ -264,27 +273,34 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadImageFromFile(file) {
         return new Promise((resolve, reject) => {
             const objectUrl = URL.createObjectURL(file);
-            loadImageFromUrl(objectUrl)
-                .then((img) => {
-                    URL.revokeObjectURL(objectUrl);
-                    resolve(img);
-                })
-                .catch((error) => {
-                    URL.revokeObjectURL(objectUrl);
-                    reject(error);
-                });
+            const img = new Image();
+
+            img.onload = function () {
+                URL.revokeObjectURL(objectUrl);
+                resolve(img);
+            };
+
+            img.onerror = function () {
+                URL.revokeObjectURL(objectUrl);
+                reject(new Error('Selected image could not be loaded.'));
+            };
+
+            img.src = objectUrl;
         });
     }
 
     function loadImageFromUrl(url) {
         return new Promise((resolve, reject) => {
             const img = new Image();
+
             img.onload = function () {
                 resolve(img);
             };
+
             img.onerror = function () {
                 reject(new Error('Image could not be loaded.'));
             };
+
             img.src = url;
         });
     }
