@@ -1,25 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
-    let flaskProcessedImageDataUrl = null; // reduced image used for gameplay/storage
+    let flaskProcessedImageDataUrl = null;
 
-    // === Restore background if previously set ===
     const storedImageUrl = sessionStorage.getItem('mainCharacterBackground');
     if (storedImageUrl) {
         document.documentElement.style.setProperty('--main-character-bg', `url(${storedImageUrl})`);
     }
 
-    // === Button: Upload Image ===
     document.querySelector('.uploadButton')?.addEventListener('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
         document.getElementById('imageInput')?.click();
     });
 
-    // === File Input: Image Selected ===
     document.getElementById('imageInput')?.addEventListener('change', async function (event) {
         const file = event.target.files[0];
         if (!file) return;
 
-        const hardMaxSize = 100 * 1024 * 1024; // 100MB absolute ceiling
+        const hardMaxSize = 100 * 1024 * 1024;
         if (file.size > hardMaxSize) {
             alert('File size exceeds 100MB. Please choose a smaller picture.');
             resetInput();
@@ -35,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('loadingIndicator').style.display = 'block';
 
         try {
-            // Normalize BEFORE sending to Flask/rembg
             const processedUploadFile = await normalizeImageForUpload(file);
 
             const formData = new FormData();
@@ -63,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw new Error(`The server did not return an image. ${nonImageText.slice(0, 200)}`);
             }
 
-            await handleReturnedImageBlob(blob);
+            await showReturnedBlobPreview(blob);
         } catch (error) {
             console.error('Image processing error:', error);
             document.getElementById('loadingIndicator').style.display = 'none';
@@ -72,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // === Button: Confirm Image ===
     document.getElementById('confirmButton')?.addEventListener('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
@@ -86,8 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     '--main-character-bg',
                     `url(${flaskProcessedImageDataUrl})`
                 );
-
-                console.log('Stored reduced gameplay image.');
             }
 
             hideOverlay();
@@ -99,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // === Button: Retry Image ===
     document.getElementById('retryButton')?.addEventListener('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
@@ -115,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = 'main.html';
     });
 
-    // === Button: Play Default ===
     document.getElementById('playDefault')?.addEventListener('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
@@ -123,67 +114,54 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.setItem('characterMode', 'default');
         sessionStorage.removeItem('mainCharacterBackground');
 
-        console.log('Default play button clicked.');
         hideOverlay();
         showMenu();
         resetInput();
     });
 
-    // === Main Returned-Image Handler ===
-    async function handleReturnedImageBlob(blob) {
+    async function showReturnedBlobPreview(blob) {
+        const previewBox = document.querySelector('.clientImgBorder');
+        const previewTarget = document.getElementById('User_Pic_Upload');
+
+        if (!previewBox || !previewTarget) {
+            throw new Error('Preview elements are missing from the page.');
+        }
+
         const blobUrl = URL.createObjectURL(blob);
 
-        try {
-            const img = await loadImageFromUrl(blobUrl);
+        previewBox.style.display = 'flex';
+        previewTarget.style.display = 'flex';
+        previewTarget.innerHTML = '';
 
-            const previewBox = document.querySelector('.clientImgBorder');
-            const previewTarget = document.getElementById('User_Pic_Upload');
+        const previewImg = document.createElement('img');
+        previewImg.alt = 'Processed Image';
+        previewImg.style.width = '100%';
+        previewImg.style.height = '100%';
+        previewImg.style.objectFit = 'cover';
+        previewImg.style.display = 'block';
 
-            if (!previewBox || !previewTarget) {
-                throw new Error('Preview elements are missing from the page.');
+        previewImg.onload = async function () {
+            try {
+                const loadedImg = await loadImageFromUrl(blobUrl);
+                flaskProcessedImageDataUrl = await createReducedGameplayImage(loadedImg);
+                showOverlay();
+            } catch (error) {
+                URL.revokeObjectURL(blobUrl);
+                throw error;
             }
+        };
 
-            previewBox.style.display = 'flex';
-            previewTarget.style.display = 'flex';
-
-            const previewRect = previewBox.getBoundingClientRect();
-            const OUT_W = Math.max(150, Math.round(previewRect.width || 150));
-            const OUT_H = Math.max(120, Math.round(previewRect.height || 120));
-
-            const previewCanvas = document.createElement('canvas');
-            const previewCtx = previewCanvas.getContext('2d');
-
-            if (!previewCtx) {
-                throw new Error('Canvas context could not be created.');
-            }
-
-            previewCanvas.width = OUT_W;
-            previewCanvas.height = OUT_H;
-            previewCtx.clearRect(0, 0, OUT_W, OUT_H);
-
-            const scale = Math.max(OUT_W / img.width, OUT_H / img.height);
-            const drawW = img.width * scale;
-            const drawH = img.height * scale;
-            const dx = (OUT_W - drawW) / 2;
-            const dy = (OUT_H - drawH) / 2;
-
-            previewCtx.drawImage(img, dx, dy, drawW, drawH);
-
-            const previewImageDataUrl = previewCanvas.toDataURL('image/png');
-            previewTarget.innerHTML = `<img src="${previewImageDataUrl}" alt="Processed Image">`;
-
-            // Create a reduced gameplay/storage version too
-            flaskProcessedImageDataUrl = await createReducedGameplayImage(img);
-
-            showOverlay();
-        } catch (error) {
-            throw new Error(`Returned image handling failed: ${error.message}`);
-        } finally {
+        previewImg.onerror = function () {
             URL.revokeObjectURL(blobUrl);
-        }
+            document.getElementById('loadingIndicator').style.display = 'none';
+            alert('The processed image preview could not be displayed on this device.');
+            resetInput();
+        };
+
+        previewImg.src = blobUrl;
+        previewTarget.appendChild(previewImg);
     }
 
-    // === Helper Functions ===
     function showOverlay() {
         document.getElementById('overlay').style.display = 'flex';
         document.querySelector('.clientImgBorder').style.display = 'flex';
@@ -212,14 +190,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     async function normalizeImageForUpload(file) {
-        const maxUploadBytes = 8 * 1024 * 1024; // target max upload size ~8MB
-        const maxDimension = 1800; // max width/height before rembg
+        const maxUploadBytes = 8 * 1024 * 1024;
+        const maxDimension = 1800;
 
         const needsResize = await imageNeedsResize(file, maxUploadBytes, maxDimension);
-
-        if (!needsResize) {
-            return file;
-        }
+        if (!needsResize) return file;
 
         const img = await loadImageFromFile(file);
 
@@ -258,16 +233,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     async function imageNeedsResize(file, maxUploadBytes, maxDimension) {
-        if (file.size > maxUploadBytes) {
-            return true;
-        }
-
+        if (file.size > maxUploadBytes) return true;
         const img = await loadImageFromFile(file);
         return img.width > maxDimension || img.height > maxDimension;
     }
 
     async function createReducedGameplayImage(img) {
-        const maxDimension = 900; // smaller for mobile/sessionStorage safety
+        const maxDimension = 900;
 
         let { width, height } = img;
         const scale = Math.min(1, maxDimension / Math.max(width, height));
@@ -286,14 +258,12 @@ document.addEventListener('DOMContentLoaded', function () {
         ctx.clearRect(0, 0, targetWidth, targetHeight);
         ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
 
-        // PNG preserves the transparency returned by rembg
         return canvas.toDataURL('image/png');
     }
 
     function loadImageFromFile(file) {
         return new Promise((resolve, reject) => {
             const objectUrl = URL.createObjectURL(file);
-
             loadImageFromUrl(objectUrl)
                 .then((img) => {
                     URL.revokeObjectURL(objectUrl);
@@ -309,15 +279,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadImageFromUrl(url) {
         return new Promise((resolve, reject) => {
             const img = new Image();
-
             img.onload = function () {
                 resolve(img);
             };
-
             img.onerror = function () {
                 reject(new Error('Image could not be loaded.'));
             };
-
             img.src = url;
         });
     }
