@@ -1,60 +1,31 @@
-html, body{
+html,
+body {
   margin: 0;
   padding: 0;
-
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden; /* optional: prevents scrollbars */
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
   position: relative;
   background-color: black;
 }
 
 .game-container {
-  width: 100%;
-  height: 100%;
-  max-width: 1280px; /* Maximum width for larger screens */
-  height: calc(100vw * (720 / 1280)); /* Calculate height based on the width to maintain aspect ratio */
-  max-height: 720px; /* Maximum height to match the maximum width */
-  margin: auto;
   position: relative;
-  border: 5px solid rgb(224, 224, 224);
-  overflow-y: hidden;  
-  overflow-x: hidden; 
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  border: 0;
+  overflow: hidden;
   background-position: center;
-  box-sizing: border-box; 
- aspect-ratio: 16 / 9;   /* Include padding and border in the width and height */
+  background-size: cover;
+  box-sizing: border-box;
   display: flex;
-
-  /*border-radius: 30px;*/
-  /*animation: border-color-animation 4s infinite; */
 }
 
-/* Adjustments for tablets (e.g., iPads) */
-@media (max-width: 1024px) {
-  .game-container {
-      max-width: 800px; /* Reduced max-width */
-      height: calc(100vw * (450 / 800)); /* Adjust height relative to the new width */
-      max-height: 450px;
-  }
-}
 
-/* Adjustments for smaller tablets and large phones */
-@media (max-width: 768px) {
-  .game-container {
-      max-width: 600px;
-      height: calc(100vw * (338 / 600)); /* Adjust height relative to the new width */
-      max-height: 338px;
-  }
-}
-
-/* Adjustments for small phones */
-@media (max-width: 480px) {
-  .game-container {
-      max-width: 320px;
-      height: calc(100vw * (180 / 320)); /* Adjust height relative to the new width */
-      max-height: 180px;
-  }
-}
 
   .fader1 {
     background-image: url('graphic-assets/Studio-Faders/Fader-1.png');
