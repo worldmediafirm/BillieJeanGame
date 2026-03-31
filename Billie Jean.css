@@ -27,58 +27,40 @@ body {
 
 
 
-  .fader1 {
-    background-image: url('graphic-assets/Studio-Faders/Fader-1.png');
-    position: absolute;
-    width: 5%;
-    height:auto;
-    z-index: 2;
-    aspect-ratio: 66 / 80;
-    background-repeat: no-repeat; 
-    background-size: contain;
-    top: 83%;
-    left: 34%;
+ .fader1,
+.fader2,
+.fader3,
+.fader4 {
+  position: absolute;
+  width: 5%;
+  height: auto;
+  z-index: 2;
+  aspect-ratio: 66 / 80;
+  background-repeat: no-repeat;
+  background-size: contain;
+  bottom: 6%;
+  top: auto;
+}
 
-     }
+.fader1 {
+  background-image: url('graphic-assets/Studio-Faders/Fader-1.png');
+  left: 34%;
+}
 
-  .fader2{
-    background-image: url('/graphic-assets/Studio-Faders/Fader-2.png');
-    position: absolute;
-    width: 5%;
-    height: auto;
-    z-index: 2;
-    aspect-ratio: 66 / 80;
-    background-repeat: no-repeat; 
-    background-size: contain;
-    top: 83%;
-    left: 43%;
-  }
+.fader2 {
+  background-image: url('/graphic-assets/Studio-Faders/Fader-2.png');
+  left: 43%;
+}
 
-  .fader3{
-    background-image: url('/graphic-assets/Studio-Faders/Fader-3.png');
-    position: absolute;
-    width: 5%;
-    height: auto;
-    z-index: 2;
-    aspect-ratio: 66 / 80;
-    background-repeat: no-repeat; 
-    background-size: contain;
-    top: 83%;
-    left: 51.8%;
-  }
+.fader3 {
+  background-image: url('/graphic-assets/Studio-Faders/Fader-3.png');
+  left: 51.8%;
+}
 
-  .fader4{
-    background-image: url('/graphic-assets/Studio-Faders/Fader-4.png');
-    position: absolute;
-    width: 5%;
-    height: auto;
-    z-index: 2;
-    aspect-ratio: 66 / 80;
-    background-repeat: no-repeat; 
-    background-size: contain;
-    top: 83%;
-    left: 60.5%;
-  }
+.fader4 {
+  background-image: url('/graphic-assets/Studio-Faders/Fader-4.png');
+  left: 60.5%;
+}
    @keyframes vibrate {
     0% { transform: translate(0, 0); }
     20% { transform: translate(-2px, -2px); }
