@@ -291,20 +291,16 @@ body {
 .Instructions {
   display: block;
   flex: 0 0 auto;
-
   width: min(92vw, 900px);
   max-width: calc(100vw - 2rem);
   aspect-ratio: 1280 / 720;
   max-height: 65vh;
-
   margin: 0 auto;
-
-  background-color: #000000;
+  background-color: #3f3f3f;
   background-image: url('/graphic-assets/Game-Instructions.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-
   border-radius: clamp(10px, 2vw, 15px);
   animation: border-color-animation 4s infinite;
   overflow: hidden;
@@ -346,6 +342,7 @@ body {
 
 .menu-container {
   text-align: center;
+ 
 }
 
 
@@ -358,7 +355,7 @@ body {
     grid-template-columns: minmax(110px, 1fr) minmax(110px, 1fr);
     gap: 8px;
     padding: 8px;
-    background-color: #000000;
+    
   }
 
   .Instructions {
