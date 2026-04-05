@@ -296,7 +296,7 @@ body {
   aspect-ratio: 1280 / 720;
   max-height: 65vh;
   margin: 0 auto;
-  background-color: #3f3f3f;
+  background-color: #000000;
   background-image: url('/graphic-assets/Game-Instructions.png');
   background-size: contain;
   background-repeat: no-repeat;
