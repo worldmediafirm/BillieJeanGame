@@ -36,7 +36,7 @@ const SoundToggleObject = {
   
   {
 
-   const response = await fetch('http://localhost:3000/CurrentSoundStatus', {
+   const response = await fetch('/sound/CurrentSoundStatus', {
       method: 'POST',
       mode: 'cors',
       headers: {

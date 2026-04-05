@@ -1,5 +1,5 @@
 async function GetCurrentGameSoundStatusFromServer() {
-    const response = await fetch('http://localhost:3000/CurrentSoundStatus');
+    const response = await fetch('/sound/CurrentSoundStatus');
     const RealTimeSoundStatus = await response.json();
     console.log(RealTimeSoundStatus);
     return RealTimeSoundStatus;
