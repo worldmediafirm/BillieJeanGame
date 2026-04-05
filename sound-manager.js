@@ -50,7 +50,7 @@ const SoundToggleObject = {
   }
   };
 
-  //SoundToggleObject.SendCurrentGameSoundStatusToServer(SoundToggleObject.createJSONFromSoundOnMethod());
+  SoundToggleObject.SendCurrentGameSoundStatusToServer(SoundToggleObject.createJSONFromSoundOnMethod());
   SoundToggleObject.addClickListener('.Sound_Toggle_Button');
   
   // "TEST" value is false when server starts
