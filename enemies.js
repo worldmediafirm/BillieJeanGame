@@ -109,11 +109,17 @@ const EnemyObject = {
                     break;
             }
 
-            if (checkCollisionWithElement(enemy)) {
-                enemy.remove();
-                this.createCollisionEffect();
-                deathBar.updateHealth(deathBar.health + 22);
-            }
+         if (checkCollisionWithElement(enemy)) {
+    const left = enemy.offsetLeft;
+    const top = enemy.offsetTop;
+
+    enemy.style.display = 'none';
+    enemy.remove();
+
+    this.createCollisionEffect(left, top);
+    deathBar.updateHealth(deathBar.health + 22);
+    return;
+}
 
             if (parseInt(enemy.style.top) > 550 - 64) {
                 enemy.remove();
