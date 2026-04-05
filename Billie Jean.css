@@ -223,7 +223,7 @@ body {
 
 .Main_Character {
   top: 33%;
-  left: 22%;
+  left: 7%;
   /*background-image: var(--main-character-bg);*/ /* Use the CSS variable */
   height: 44%;
   width: 100%;
