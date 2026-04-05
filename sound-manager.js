@@ -1,61 +1,68 @@
 const SoundToggleObject = {
-  
-  soundOn: false, // Default sound is OFF
- 
+  soundOn: false,
 
-  // Function to toggle the sound
-  toggleSound: function() {
-    this.soundOn = !this.soundOn;
-    this.SendCurrentGameSoundStatusToServer(this.createJSONFromSoundOnMethod());
+  init: async function () {
+    try {
+      const response = await fetch('/sound/CurrentSoundStatus');
+      const result = await response.json();
+
+      this.soundOn = result.soundOn === true;
+      console.log('Initial sound state from server:', this.soundOn);
+    } catch (error) {
+      console.error('Error initializing sound state:', error);
+    }
   },
 
-  // Function to add a click event listener to a button
-  addClickListener: function(buttonId) {
+  toggleSound: async function () {
+    this.soundOn = !this.soundOn;
+
+    try {
+      const result = await this.SendCurrentGameSoundStatusToServer(
+        this.createJSONFromSoundOnMethod()
+      );
+      console.log('Sound is now:', this.soundOn);
+      console.log('Server response:', result);
+    } catch (error) {
+      console.error('Error toggling sound:', error);
+    }
+  },
+
+  addClickListener: function (buttonId) {
     const button = document.querySelector(buttonId);
+
     if (button) {
-      button.addEventListener('click', (event) => {
+      button.addEventListener('click', async (event) => {
         event.preventDefault();
-        this.toggleSound(); // Call the toggleSound method when the button is clicked
-        console.log('Sound is now:', this.soundOn);
+        await this.toggleSound();
       });
     } else {
       console.error('Button with ID', buttonId, 'not found.');
     }
   },
 
-  createJSONFromSoundOnMethod: function() {
-    // Create an object with the soundOn value
+  createJSONFromSoundOnMethod: function () {
     const now = new Date();
-    var SoundStatusJSONObject = { date: `${now.toLocaleString()}`, soundOn: this.soundOn };
-  
-    // Return the object as a JSON string
-    return (SoundStatusJSONObject);
-},
-  
-  SendCurrentGameSoundStatusToServer: async (data) =>
-  
-  {
+    return {
+      date: now.toLocaleString(),
+      soundOn: this.soundOn
+    };
+  },
 
-   const response = await fetch('/sound/CurrentSoundStatus', {
+  SendCurrentGameSoundStatusToServer: async function (data) {
+    const response = await fetch('/sound/CurrentSoundStatus', {
       method: 'POST',
-      mode: 'cors',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data),
-  })
-  const result = await response.json();
-  console.log(result);
-  return result; // Handle the response from the server
+    });
+
+    const result = await response.json();
+    return result;
   }
-  };
+};
 
-  SoundToggleObject.SendCurrentGameSoundStatusToServer(SoundToggleObject.createJSONFromSoundOnMethod());
+(async function () {
+  await SoundToggleObject.init();
   SoundToggleObject.addClickListener('.Sound_Toggle_Button');
-  
-  // "TEST" value is false when server starts
-  //SoundToggleObject.SendCurrentGameSoundStatusToServer(SoundToggleObject.createJSONFromSoundOnMethod());
-  
-
-
-
+})();
