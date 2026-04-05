@@ -103,7 +103,12 @@ document.addEventListener('DOMContentLoaded', function () {
         flaskProcessedImageDataUrl = null;
         cleanupPreviewBlobUrl();
 
-        document.getElementById('User_Pic_Upload').innerHTML = '';
+        const previewImg = document.getElementById('User_Pic_Upload');
+        if (previewImg) {
+            previewImg.src = '';
+            previewImg.style.display = 'none';
+        }
+
         document.querySelector('.clientImgBorder').style.display = 'none';
         document.getElementById('confirmButton').style.display = 'none';
         document.getElementById('retryButton').style.display = 'none';
@@ -128,19 +133,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function showReturnedBlobPreview(blob) {
         const previewBox = document.querySelector('.clientImgBorder');
-        const previewTarget = document.getElementById('User_Pic_Upload');
+        const previewImg = document.getElementById('User_Pic_Upload');
 
-        if (!previewBox || !previewTarget) {
+        if (!previewBox || !previewImg) {
             throw new Error('Preview elements are missing from the page.');
         }
 
         currentPreviewBlobUrl = URL.createObjectURL(blob);
 
         previewBox.style.display = 'flex';
-        previewTarget.style.display = 'flex';
-        previewTarget.innerHTML = '';
-
-        const previewImg = document.createElement('img');
+        previewImg.style.display = 'block';
         previewImg.alt = 'Processed Image';
         previewImg.src = currentPreviewBlobUrl;
 
@@ -151,7 +153,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 showOverlay();
                 console.log('preview loaded', previewImg.naturalWidth, previewImg.naturalHeight);
             } catch (error) {
-                throw new Error(`Gameplay image creation failed: ${error.message}`);
+                document.getElementById('loadingIndicator').style.display = 'none';
+                alert(`Gameplay image creation failed: ${error.message}`);
+                resetInput();
             }
         };
 
@@ -160,8 +164,6 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('The processed image preview could not be displayed on this device.');
             resetInput();
         };
-
-        previewTarget.appendChild(previewImg);
     }
 
     function cleanupPreviewBlobUrl() {
@@ -174,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function showOverlay() {
         document.getElementById('overlay').style.display = 'flex';
         document.querySelector('.clientImgBorder').style.display = 'flex';
-        document.getElementById('User_Pic_Upload').style.display = 'flex';
+        document.getElementById('User_Pic_Upload').style.display = 'block';
         document.getElementById('confirmButton').style.display = 'block';
         document.getElementById('retryButton').style.display = 'block';
         document.getElementById('loadingIndicator').style.display = 'none';
