@@ -1,42 +1,25 @@
-<!--GAME INTERFACE AFTER INDEX.HTML-->
-<!DOCTYPE html>
-<html>
-<head>
-  <title>WMF OPS</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="Billie Jean.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-</head>
 <body>
   <div class="game-container" alt="game-container">
+    <canvas id="health-bar"></canvas>
+    <canvas id="death-bar"></canvas>
+
+    <div class="countdown"></div>
+    <div class="game-background"></div>
+
+    <div class="Gameplay-UI">
       <div class="fader1"></div>
       <div class="fader2"></div>
       <div class="fader3"></div>
       <div class="fader4"></div>
-      
+    </div>
 
-    
-           <canvas id="health-bar"></canvas>
-           <canvas id="death-bar"></canvas>
- 
-    <div class="countdown"></div>
-      <div class="game-background"></div>
-        <div class="Gameplay-UI"></div>
-          <div class="Enemy-Sprite-Container"></div>
-            <div class="Main_Character"></div>
-              <div class="console"></div>
-                </div> 
-  
-  
-              <div class="expressions"></div>
+    <div class="Enemy-Sprite-Container"></div>
+    <div class="Main_Character"></div>
+    <div class="console"></div>
+  </div>
 
-             
-  
+  <div class="expressions"></div>
+
   <script src="winners-list-dllclass.js"></script>
   <script src="health-bar.js"></script>
   <script src="collision.js"></script>
@@ -48,7 +31,4 @@
   <script src="button-module.js"></script>
   <script src="game-rules.js"></script>
   <script src="game-over-overlay.js"></script>
-  
-  
 </body>
-</html>
