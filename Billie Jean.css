@@ -223,13 +223,13 @@ body {
 
 .Main_Character {
   top: 33%;
-  left: 7%;
+  left: 77%;
   /*background-image: var(--main-character-bg);*/ /* Use the CSS variable */
   height: 44%;
   width: 100%;
   background-repeat: no-repeat;
   background-size: cover; /* Ensure the image covers the entire element */
-  background-position: center; /* Center the background in the element */
+  background-position: left center; /* Center the background in the element */
   position: absolute;
   
 }
