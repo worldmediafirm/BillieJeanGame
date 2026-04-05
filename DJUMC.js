@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   const DJUMC = document.querySelector('.Main_Character');
+  DJUMC.style.left = '50px';
   if (!DJUMC) return;
 
   const characterMode = sessionStorage.getItem('characterMode'); // 'default' | 'user'
