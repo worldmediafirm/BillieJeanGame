@@ -358,6 +358,7 @@ body {
     grid-template-columns: minmax(110px, 1fr) minmax(110px, 1fr);
     gap: 8px;
     padding: 8px;
+    background-color: #000000;
   }
 
   .Instructions {
