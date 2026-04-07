@@ -379,7 +379,7 @@ body {
   font-size: 42px;
   margin-top: 12px;
   margin-bottom: 12px;
-  opacity: 0.95;
+  /*opacity: 0.95;*/
 
   /* ✨ Glow effect */
   text-shadow:
