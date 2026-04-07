@@ -375,12 +375,12 @@ body {
 }
 .landscape-hint {
   text-align: center;
-  color: #00ffff;
+  color: #ffffff;
   font-size: 42px;
-  top: 33%;
+  
   margin-top: 12px;
   margin-bottom: 12px;
-  opacity: 3;
+  opacity: 1;
 
   /* ✨ Glow effect */
   text-shadow:
