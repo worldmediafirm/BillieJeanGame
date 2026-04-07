@@ -373,3 +373,20 @@ body {
    
   }
 }
+.landscape-hint {
+  text-align: center;
+  color: #00ffff;
+  font-size: 14px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  opacity: 0.95;
+
+  /* ✨ Glow effect */
+  text-shadow:
+    0 0 4px rgba(0, 255, 255, 0.8),
+    0 0 8px rgba(0, 255, 255, 0.6),
+    0 0 12px rgba(0, 255, 255, 0.4);
+
+  /* Optional slight bold for presence */
+  font-weight: 500;
+}
