@@ -382,11 +382,11 @@ body {
   margin-bottom: 12px;
   opacity: 1;
 
-  /* ✨ Glow effect */
+  /* ✨ Glow effect 
   text-shadow:
     0 0 4px rgba(0, 255, 255, 0.8),
     0 0 8px rgba(0, 255, 255, 0.6),
-    0 0 12px rgba(0, 255, 255, 0.4);
+    0 0 12px rgba(0, 255, 255, 0.4);*/
 
   /* Optional slight bold for presence */
   font-weight: 500;
