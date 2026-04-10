@@ -35,8 +35,17 @@
   
               <div class="expressions"></div>
 
-             
-  
+   <script>
+  window.APP_CONFIG = {
+    apiBase: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:6015'
+      : '/api',
+    soundBase: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:3000'
+      : '/sound'
+  };
+</script>          
+  <script src="GameStatsObject.js"></script>
   <script src="winners-list-dllclass.js"></script>
   <script src="health-bar.js"></script>
   <script src="collision.js"></script>

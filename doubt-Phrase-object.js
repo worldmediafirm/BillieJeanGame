@@ -44,6 +44,8 @@ const doubtPhraseObject = {
     const gameContainer = document.querySelector('.game-container');
     if (!gameContainer) return;
 
+    gameStats.doubtPhrases++;
+
     const containerRect = gameContainer.getBoundingClientRect();
 
     const spriteContainer = document.createElement('div');
@@ -102,6 +104,7 @@ const doubtPhraseObject = {
       }
 
       if (checkCollisionWithElement(spriteContainer)) {
+        gameStats.collisions++;
         spriteContainer.remove();
         deathBar.updateHealth(deathBar.health + 66);
         return;

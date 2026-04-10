@@ -49,7 +49,7 @@ const SoundToggleObject = {
   },
 
   SendCurrentGameSoundStatusToServer: async function (data) {
-    const response = await fetch('/sound/CurrentSoundStatus', {
+    const response = await fetch(`${window.APP_CONFIG.soundBase}/CurrentSoundStatus`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

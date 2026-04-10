@@ -52,6 +52,25 @@ class ButtonModule {
   }
 
   handleFaderClick(faderEvent) {
+
+    
+  if (faderEvent === "fader1") {
+    gameStats.fader1presses++;
+  }
+
+  if (faderEvent === "fader2") {
+    gameStats.fader2presses++;
+  }
+
+  if (faderEvent === "fader3") {
+    gameStats.fader3presses++;
+  }
+
+  if (faderEvent === "fader4") {
+    gameStats.fader4presses++;
+  }
+
+
     if (!this.secondClickEvent) {
       this.secondClickEvent = this.firstClickEvent;
       this.firstClickEvent = faderEvent;

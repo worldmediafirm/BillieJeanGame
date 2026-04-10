@@ -48,6 +48,17 @@
   </div>
   <div class="landscape-hint">Works best in landscape mode</div>
 
+  <script>
+  window.APP_CONFIG = {
+    apiBase: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:6015'
+      : '/api',
+    soundBase: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:3000'
+      : '/sound'
+  };
+</script>
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="sound-manager.js"></script>
   <script src="user-image-handler.js"></script>

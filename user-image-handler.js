@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const formData = new FormData();
             formData.append('image', processedUploadFile, processedUploadFile.name || 'upload.jpg');
 
-            const response = await fetch('/api/background-removal-image', {
+            const response = await fetch(`${window.APP_CONFIG.apiBase}/background-removal-image`, {
                 method: 'POST',
                 body: formData
             });

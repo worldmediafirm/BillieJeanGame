@@ -1,5 +1,5 @@
 async function GetCurrentGameSoundStatusFromServer() {
-    const response = await fetch('/sound/CurrentSoundStatus');
+    const response = await fetch(`${window.APP_CONFIG.soundBase}/CurrentSoundStatus`)
     const RealTimeSoundStatus = await response.json();
     console.log(RealTimeSoundStatus);
     return RealTimeSoundStatus;
@@ -53,6 +53,10 @@ const EnemyObject = {
     baseSpeed: 30, // Adjust speed as needed
 
     createEnemy: function () {
+
+    gameStats.totalEnemies++;
+    gameStats.regularEnemies++;
+
         const enemy = document.createElement('div');
         enemy.className = 'enemies';
         enemy.style.left = Math.random() * (1280 - 64) + 'px';
@@ -63,6 +67,11 @@ const EnemyObject = {
     },
 
     createEnemyBlack: function () {
+
+
+    gameStats.totalEnemies++;
+    gameStats.blackEnemies++;
+
         const enemy = document.createElement('div');
         enemy.className = 'enemies-black';
         enemy.style.left = Math.random() * (1280 - 64) + 'px';
@@ -73,6 +82,10 @@ const EnemyObject = {
     },
 
     createEnemyRed: function () {
+
+    gameStats.totalEnemies++;
+    gameStats.redEnemies++;
+
         const enemy = document.createElement('div');
         enemy.className = 'enemies-red';
         enemy.style.left = Math.random() * (1280 - 64) + 'px';
@@ -110,6 +123,8 @@ const EnemyObject = {
             }
 
          if (checkCollisionWithElement(enemy)) {
+    gameStats.collisions++;
+
     const left = enemy.offsetLeft;
     const top = enemy.offsetTop;
 

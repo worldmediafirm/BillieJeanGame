@@ -16,6 +16,10 @@ function stopTheClockFunction() {
 const gameDuration = 7;
 let currentTime = gameDuration;
 
+if (!gameStats.startTime) {
+  gameStats.startTime = Date.now();
+}
+
 const timer = document.createElement('div');
 timer.classList.add('countdown');
 document.querySelector('.game-container').appendChild(timer);
@@ -42,6 +46,7 @@ const timerInterval = setInterval(() => {
     console.log('LOSS branch hit');
 
     endStateTriggered = true;
+    gameStats.endTime = Date.now();
     stopTheClockFunction();
     GameLostPictureOverlay();
 
@@ -58,6 +63,7 @@ const timerInterval = setInterval(() => {
     console.log('WIN branch hit');
 
     endStateTriggered = true;
+    gameStats.endTime = Date.now();
     stopTheClockFunction();
     GameWon();
     return;
