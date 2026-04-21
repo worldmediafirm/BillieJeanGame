@@ -80,7 +80,7 @@ function GameWon() {
 
   const winButton = document.createElement('button');
   winButton.classList.add('win-button');
-  winButton.textContent = 'PLAY AGAIN';
+  winButton.textContent = 'START OVER';
   winButton.addEventListener('click', handleButtonClick_winner);
 
   winOverlay.appendChild(winHeading);

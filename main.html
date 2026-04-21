@@ -12,6 +12,17 @@
 
   <div id="overlay">
     <div id="overlayContent">
+    <button id="closeOverlay" class="overlay-close" type="button" aria-label="Close intro">&times;</button>
+
+<div class="client-intro-copy">
+  <h2 class="client-intro-title">Interactive Portfolio Demo</h2>
+  <p class="client-intro-text">
+    If you're here, you're likely looking for a custom software solution.
+This live demo shows how user interactions can be tracked, processed, and turned into clear, actionable data.
+
+The experience is presented through a simple game, but the underlying system reflects real-world workflow and data management logic. More features are actively being built.
+  </p>
+</div> 
       <div class="Game-Title"></div>
       <div id="spacer-i"></div>
 
@@ -48,6 +59,8 @@
   </div>
   <div class="landscape-hint">Works best in landscape mode</div>
 
+  
+
   <script>
   window.APP_CONFIG = {
     apiBase: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
@@ -57,6 +70,29 @@
       ? 'http://localhost:3000'
       : '/sound'
   };
+</script>
+
+<script>
+  window.addEventListener('load', () => {
+    const introBox = document.querySelector('.client-intro-copy');
+    const closeOverlayButton = document.getElementById('closeOverlay');
+
+    requestAnimationFrame(() => {
+      document.getElementById('overlay').classList.add('overlay-active');
+    });
+
+    closeOverlayButton.addEventListener('click', () => {
+      introBox.style.opacity = '0';
+      introBox.style.transform = 'translateY(-8px)';
+      closeOverlayButton.style.opacity = '0';
+      closeOverlayButton.style.pointerEvents = 'none';
+
+      setTimeout(() => {
+        introBox.style.display = 'none';
+        closeOverlayButton.style.display = 'none';
+      }, 220);
+    });
+  });
 </script>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

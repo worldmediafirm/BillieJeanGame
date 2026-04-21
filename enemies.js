@@ -1,5 +1,5 @@
 async function GetCurrentGameSoundStatusFromServer() {
-    const response = await fetch(`${window.APP_CONFIG.soundBase}/CurrentSoundStatus`)
+    const response = await fetch(`${window.APP_CONFIG.soundBase}/CurrentSoundStatus`);
     const RealTimeSoundStatus = await response.json();
     console.log(RealTimeSoundStatus);
     return RealTimeSoundStatus;
@@ -7,6 +7,7 @@ async function GetCurrentGameSoundStatusFromServer() {
 
 let gameMusic = null;
 let currentSoundOn = false;
+let spawnSpeedMultiplier = 1;
 
 const startGameMusic = () => {
     try {
@@ -50,12 +51,11 @@ async function refreshSoundState() {
 }
 
 const EnemyObject = {
-    baseSpeed: 30, // Adjust speed as needed
+    baseSpeed: 30,
 
     createEnemy: function () {
-
-    gameStats.totalEnemies++;
-    gameStats.regularEnemies++;
+        gameStats.totalEnemies++;
+        gameStats.regularEnemies++;
 
         const enemy = document.createElement('div');
         enemy.className = 'enemies';
@@ -67,10 +67,8 @@ const EnemyObject = {
     },
 
     createEnemyBlack: function () {
-
-
-    gameStats.totalEnemies++;
-    gameStats.blackEnemies++;
+        gameStats.totalEnemies++;
+        gameStats.blackEnemies++;
 
         const enemy = document.createElement('div');
         enemy.className = 'enemies-black';
@@ -82,9 +80,8 @@ const EnemyObject = {
     },
 
     createEnemyRed: function () {
-
-    gameStats.totalEnemies++;
-    gameStats.redEnemies++;
+        gameStats.totalEnemies++;
+        gameStats.redEnemies++;
 
         const enemy = document.createElement('div');
         enemy.className = 'enemies-red';
@@ -93,6 +90,18 @@ const EnemyObject = {
         enemy.dataset.movementType = Math.floor(Math.random() * 3); // 0-linear, 1-trigonometric, 2-sinusoidal
         document.querySelector('.game-container').appendChild(enemy);
         return enemy;
+    },
+
+    spawnRandomEnemy: function () {
+        const rand = Math.random();
+
+        if (rand < 0.5) {
+            return this.createEnemy(); // 50%
+        } else if (rand < 0.8) {
+            return this.createEnemyBlack(); // 30%
+        } else {
+            return this.createEnemyRed(); // 20%
+        }
     },
 
     createCollisionEffect: function(left, top) {
@@ -109,6 +118,7 @@ const EnemyObject = {
 
     animateEnemies: function () {
         const enemies = document.querySelectorAll('.enemies, .enemies-black, .enemies-red');
+
         enemies.forEach(enemy => {
             switch (parseInt(enemy.dataset.movementType)) {
                 case 0:
@@ -122,19 +132,19 @@ const EnemyObject = {
                     break;
             }
 
-         if (checkCollisionWithElement(enemy)) {
-    gameStats.collisions++;
+            if (checkCollisionWithElement(enemy)) {
+                gameStats.collisions++;
 
-    const left = enemy.offsetLeft;
-    const top = enemy.offsetTop;
+                const left = enemy.offsetLeft;
+                const top = enemy.offsetTop;
 
-    enemy.style.display = 'none';
-    enemy.remove();
+                enemy.style.display = 'none';
+                enemy.remove();
 
-    this.createCollisionEffect(left, top);
-    deathBar.updateHealth(deathBar.health + 22);
-    return;
-}
+                this.createCollisionEffect(left, top);
+                deathBar.updateHealth(deathBar.health + 22);
+                return;
+            }
 
             if (parseInt(enemy.style.top) > 550 - 64) {
                 enemy.remove();
@@ -186,27 +196,27 @@ setInterval(async () => {
     await refreshSoundState();
 }, 500);
 
-// Enemy creation intervals
+// Difficulty scaling
 setInterval(() => {
-    EnemyObject.createEnemy();
-    if (currentSoundOn) {
-        EnemyObject.EnemySoundEffect();
-    }
-}, 1325);
+    spawnSpeedMultiplier += 0.05;
 
-setInterval(() => {
-    EnemyObject.createEnemyBlack();
-    if (currentSoundOn) {
-        EnemyObject.EnemySoundEffect();
+    // Optional safety cap so the game doesn't become absurd
+    if (spawnSpeedMultiplier > 2.5) {
+        spawnSpeedMultiplier = 2.5;
     }
-}, 1050);
+}, 5000);
 
-setInterval(() => {
-    EnemyObject.createEnemyRed();
+// Randomized enemy spawn loop
+function spawnLoop() {
+    EnemyObject.spawnRandomEnemy();
+
     if (currentSoundOn) {
         EnemyObject.EnemySoundEffect();
     }
-}, 800);
+
+    const nextSpawn = (400 + Math.random() * 550) / spawnSpeedMultiplier;
+    setTimeout(spawnLoop, nextSpawn);
+}
 
 // Enemy animation interval
 setInterval(() => {
@@ -215,3 +225,6 @@ setInterval(() => {
 
 // Initialize sound state immediately on load
 refreshSoundState();
+
+// Start randomized spawning
+spawnLoop();
