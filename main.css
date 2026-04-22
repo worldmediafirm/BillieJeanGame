@@ -492,16 +492,24 @@ body {
     font-size: 22px;
   }
 
-  .client-intro-copy {
-    width: 96%;
-    padding: 10px 12px;
-  }
+  /* =========================
+   CLIENT INTRO FONT FIX
+========================= */
 
-  .client-intro-title {
-    font-size: 18px;
-  }
+.client-intro-copy {
+  font-size: 1rem; /* base scaling */
+  line-height: 1.5;
+}
 
-  .client-intro-text {
-    font-size: 12px;
-  }
+.client-intro-title {
+  font-size: clamp(20px, 3vw, 32px); /* BIGGER headline */
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.client-intro-text {
+  font-size: clamp(14px, 1.8vw, 18px); /* readable body */
+  line-height: 1.6;
+}
+
 }
