@@ -1,4 +1,3 @@
-html,
 body {
   margin: 0;
   padding: 0;
@@ -49,14 +48,25 @@ body {
   align-items: center;
 
   padding: clamp(8px, 2vw, 16px);
+  overflow: hidden;
+
   background-color: rgba(0, 0, 0, 0.966);
   font-family: "Courier New", Courier, monospace;
+
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+#overlay.overlay-active {
+  opacity: 1;
 }
 
 #overlayContent {
+  position: relative;
+
   width: min(92vw, 900px);
   max-width: 100%;
-  max-height: 96dvh;
+  max-height: calc(100dvh - 32px);
 
   overflow-y: auto;
   overflow-x: hidden;
@@ -77,22 +87,19 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  transform: translateY(18px) scale(0.97);
+  opacity: 0;
+  transition:
+    transform 0.3s ease-out,
+    opacity 0.3s ease-out,
+    box-shadow 0.3s ease-out;
 }
 
-@media (orientation: landscape) and (max-height: 500px) {
-  #overlay {
-    align-items: flex-start;
-    padding: 4px;
-    overflow-y: auto;
-  }
-
-  #overlayContent {
-    max-height: none;
-    overflow: visible;
-
-    gap: 4px;
-    padding: 6px;
-  }
+#overlay.overlay-active #overlayContent {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38);
 }
 
 /* =========================
@@ -228,204 +235,8 @@ body {
 }
 
 /* =========================
-   MOBILE TIGHTENING - OVERLAY
-========================= */
-
-@media (max-width: 500px), (max-height: 800px) {
-  #overlay {
-    padding: 8px;
-  }
-
-  #overlayContent {
-    width: 94vw;
-    max-height: 96vh;
-    padding: 10px;
-    gap: 8px;
-  }
-
-  .Game-Title {
-    width: 72vw;
-  }
-
-  #spacer-i {
-    height: 6px;
-  }
-
-  .uploadButton,
-  #playDefault {
-    min-width: 140px;
-    min-height: 40px;
-    font-size: 13px;
-    padding: 7px 12px;
-    margin: 4px;
-  }
-
-  .main-text {
-    font-size: 13px;
-  }
-
-  .subtext {
-    font-size: 9px;
-  }
-
-  .clientImgBorder {
-    width: min(42vw, 180px);
-    min-height: 90px;
-    border-radius: 28px;
-  }
-
-  .confirmPic-button-row {
-    gap: 8px;
-    margin-top: 8px;
-  }
-
-  #confirmButton,
-  #retryButton {
-    min-width: 110px;
-    min-height: 40px;
-    font-size: 13px;
-    padding: 7px 12px;
-  }
-}
-
-/* =========================
-   POST-SKIN MENU
-========================= */
-
-.menu-container {
-  position: fixed;
-  inset: 0;
-  height: 100dvh;
-  overflow: hidden;
-  z-index: 1000;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  gap: clamp(10px, 2vh, 20px);
-  padding: clamp(10px, 2vw, 20px);
-  box-sizing: border-box;
-
-  background-color: rgba(0, 0, 0, 0.75);
-}
-
-.Instructions {
-  display: block;
-  flex: 0 0 auto;
-  width: min(92vw, 900px);
-  max-width: calc(100vw - 2rem);
-  aspect-ratio: 1280 / 720;
-  max-height: 65vh;
-  margin: 0 auto;
-  background-color: #000000;
-  background-image: url('/graphic-assets/Game-Instructions.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  border-radius: clamp(10px, 2vw, 15px);
-  animation: border-color-animation 4s infinite;
-  overflow: hidden;
-}
-
-.Start_Button,
-.Sound_Toggle_Button {
-  padding: clamp(7px, 1vw, 10px) clamp(12px, 1.8vw, 20px);
-  margin: 0;
-  font-size: clamp(13px, 1.6vw, 16px);
-  min-height: clamp(40px, 5vw, 60px);
-  min-width: clamp(110px, 18vw, 160px);
-
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-  color: #fff;
-  background-color: #151515;
-  border: none;
-  border-radius: clamp(22px, 7vw, 75px);
-
-  position: static;
-}
-
-.Footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: clamp(10px, 2vw, 20px);
-  width: 100%;
-}
-
-.Start_Button,
-.Sound_Toggle_Button {
-  display: inline-flex;
-}
-
-.menu-container {
-  text-align: center;
- 
-}
-
-
-/* =========================
-   MOBILE TIGHTENING - POST-SKIN MENU
-========================= */
-
-@media (max-width: 500px), (max-height: 800px) {
-  .menu-container {
-    grid-template-columns: minmax(110px, 1fr) minmax(110px, 1fr);
-    gap: 8px;
-    padding: 8px;
-    
-  }
-
-  .Instructions {
-    width: 94vw;
-    max-height: 62vh;
-    border-radius: 10px;
-  }
-
-  .Start_Button,
-  .Sound_Toggle_Button {
-    min-height: 40px;
-    min-width: 110px;
-    font-size: 13px;
-    padding: 7px 12px;
-   
-  }
-}
-
-
-/* =========================
    CLIENT INTRO ADD-ON
 ========================= */
-
-#overlay {
-  opacity: 0;
-  transition: opacity 0.28s ease;
-}
-
-#overlay.overlay-active {
-  opacity: 1;
-}
-
-#overlayContent {
-  position: relative;
-  transform: translateY(18px) scale(0.97);
-  opacity: 0;
-  transition:
-    transform 0.3s ease-out,
-    opacity 0.3s ease-out,
-    box-shadow 0.3s ease-out;
-}
-
-#overlay.overlay-active #overlayContent {
-  transform: translateY(0) scale(1);
-  opacity: 1;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38);
-}
 
 .overlay-close {
   position: absolute;
@@ -482,31 +293,240 @@ body {
   line-height: 1.45;
 }
 
+/* =========================
+   MOBILE TIGHTENING - OVERLAY
+========================= */
+
 @media (max-width: 500px), (max-height: 800px) {
+  #overlay {
+    padding: 8px;
+  }
+
+  #overlayContent {
+    width: 94vw;
+    max-height: calc(100dvh - 16px);
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .Game-Title {
+    width: 72vw;
+  }
+
+  #spacer-i {
+    height: 6px;
+  }
+
+  .uploadButton,
+  #playDefault {
+    min-width: 140px;
+    min-height: 40px;
+    font-size: 13px;
+    padding: 7px 12px;
+    margin: 4px;
+  }
+
+  .main-text {
+    font-size: 13px;
+  }
+
+  .subtext {
+    font-size: 9px;
+  }
+
+  .clientImgBorder {
+    width: min(42vw, 180px);
+    min-height: 90px;
+    border-radius: 28px;
+  }
+
+  .confirmPic-button-row {
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  #confirmButton,
+  #retryButton {
+    min-width: 110px;
+    min-height: 40px;
+    font-size: 13px;
+    padding: 7px 12px;
+  }
+
   .overlay-close {
     width: 34px;
     height: 34px;
     font-size: 22px;
   }
 
-  /* =========================
-   CLIENT INTRO FONT FIX
+  .client-intro-copy {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .client-intro-title {
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .client-intro-text {
+    font-size: clamp(14px, 1.8vw, 18px);
+    line-height: 1.6;
+  }
+}
+
+/* =========================
+   SHORT LANDSCAPE PHONE FIX
 ========================= */
 
-.client-intro-copy {
-  font-size: 1rem; /* base scaling */
-  line-height: 1.5;
+@media (orientation: landscape) and (max-height: 500px) {
+  #overlay {
+    align-items: flex-start;
+    padding: 4px;
+    overflow: hidden;
+  }
+
+  #overlayContent {
+    width: 96vw;
+    max-height: calc(100dvh - 8px);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    gap: 4px;
+    padding: 6px;
+  }
+
+  .Game-Title {
+    width: 46vw;
+  }
+
+  .clientImgBorder {
+    width: min(30vw, 150px);
+    min-height: 70px;
+  }
+
+  .loader {
+    width: clamp(36px, 8vw, 70px);
+  }
+
+  .uploadButton,
+  #playDefault,
+  #confirmButton,
+  #retryButton {
+    min-height: 32px;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .client-intro-copy {
+    padding: 6px 10px;
+  }
+
+  .client-intro-title {
+    font-size: clamp(15px, 3vw, 22px);
+    margin-bottom: 4px;
+  }
+
+  .client-intro-text {
+    font-size: clamp(10px, 1.8vw, 13px);
+    line-height: 1.3;
+  }
 }
 
-.client-intro-title {
-  font-size: clamp(20px, 3vw, 32px); /* BIGGER headline */
-  font-weight: 700;
-  line-height: 1.2;
+/* =========================
+   POST-SKIN MENU
+========================= */
+
+.menu-container {
+  position: fixed;
+  inset: 0;
+  height: 100dvh;
+  overflow: hidden;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: clamp(10px, 2vh, 20px);
+  padding: clamp(10px, 2vw, 20px);
+  box-sizing: border-box;
+
+  background-color: rgba(0, 0, 0, 0.75);
+  text-align: center;
 }
 
-.client-intro-text {
-  font-size: clamp(14px, 1.8vw, 18px); /* readable body */
-  line-height: 1.6;
+.Instructions {
+  display: block;
+  flex: 0 0 auto;
+  width: min(92vw, 900px);
+  max-width: calc(100vw - 2rem);
+  aspect-ratio: 1280 / 720;
+  max-height: 65vh;
+  margin: 0 auto;
+  background-color: #000000;
+  background-image: url('/graphic-assets/Game-Instructions.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: clamp(10px, 2vw, 15px);
+  animation: border-color-animation 4s infinite;
+  overflow: hidden;
 }
 
+.Start_Button,
+.Sound_Toggle_Button {
+  padding: clamp(7px, 1vw, 10px) clamp(12px, 1.8vw, 20px);
+  margin: 0;
+  font-size: clamp(13px, 1.6vw, 16px);
+  min-height: clamp(40px, 5vw, 60px);
+  min-width: clamp(110px, 18vw, 160px);
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  color: #fff;
+  background-color: #151515;
+  border: none;
+  border-radius: clamp(22px, 7vw, 75px);
+
+  position: static;
+}
+
+.Footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(10px, 2vw, 20px);
+  width: 100%;
+}
+
+/* =========================
+   MOBILE TIGHTENING - POST-SKIN MENU
+========================= */
+
+@media (max-width: 500px), (max-height: 800px) {
+  .menu-container {
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .Instructions {
+    width: 94vw;
+    max-height: 62vh;
+    border-radius: 10px;
+  }
+
+  .Start_Button,
+  .Sound_Toggle_Button {
+    min-height: 40px;
+    min-width: 110px;
+    font-size: 13px;
+    padding: 7px 12px;
+  }
 }
