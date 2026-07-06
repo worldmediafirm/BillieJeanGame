@@ -477,6 +477,41 @@ body {
   overflow: hidden;
 }
 
+.game-instructions-text {
+    position: absolute;
+
+    left: 50%;
+    top: 24%;              /* Adjust until it sits just under your red title */
+
+    transform: translateX(-50%);
+
+    width: 80%;
+
+    text-align: center;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+
+    font-size: clamp(20px, 1.4vw, 22px);
+
+    line-height: 1.6;
+
+    text-shadow: 2px 2px 8px rgba(0,0,0,.9);
+
+    background: rgba(0,0,0,.45);
+    padding: 14px 22px;
+    border-radius: 12px;
+}
+
+.game-instructions-text p {
+    margin: .45em 0;
+}
+
+.game-instructions-text strong {
+    color: #FDD2BF;
+}
+
 .Start_Button,
 .Sound_Toggle_Button {
   padding: clamp(7px, 1vw, 10px) clamp(12px, 1.8vw, 20px);
