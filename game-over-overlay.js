@@ -43,26 +43,123 @@ function getGameStatsSummary() {
 function createStatsSummaryPanel() {
   const stats = getGameStatsSummary();
 
+  const statRows = [
+    { label: "Total Enemies", value: stats.totalEnemies, category: "enemies" },
+    { label: "Regular Enemies", value: stats.regularEnemies, category: "enemies" },
+    { label: "Black Enemies", value: stats.blackEnemies, category: "enemies" },
+    { label: "Red Enemies", value: stats.redEnemies, category: "enemies" },
+    { label: "Red Frequency", value: `${stats.redFrequency}%`, category: "frequency" },
+    { label: "Black Frequency", value: `${stats.blackFrequency}%`, category: "frequency" },
+    { label: "Doubt Phrases", value: stats.doubtPhrases, category: "events" },
+    { label: "Fader 1 Presses", value: stats.fader1presses, category: "inputs" },
+    { label: "Fader 2 Presses", value: stats.fader2presses, category: "inputs" },
+    { label: "Fader 3 Presses", value: stats.fader3presses, category: "inputs" },
+    { label: "Fader 4 Presses", value: stats.fader4presses, category: "inputs" },
+    { label: "Total Inputs", value: stats.totalInputs, category: "inputs" },
+    { label: "Collisions", value: stats.collisions, category: "events" },
+    { label: "Session Duration", value: `${stats.sessionDurationSeconds}s`, category: "session" }
+  ];
+
   const panel = document.createElement('div');
   panel.classList.add('stats-summary-panel');
 
   panel.innerHTML = `
     <h3 class="stats-summary-heading">SESSION SUMMARY</h3>
-    <div class="stats-summary-row"><span>Total Enemies</span><span>${stats.totalEnemies}</span></div>
-    <div class="stats-summary-row"><span>Regular Enemies</span><span>${stats.regularEnemies}</span></div>
-    <div class="stats-summary-row"><span>Black Enemies</span><span>${stats.blackEnemies}</span></div>
-    <div class="stats-summary-row"><span>Red Enemies</span><span>${stats.redEnemies}</span></div>
-    <div class="stats-summary-row"><span>Red Frequency</span><span>${stats.redFrequency}%</span></div>
-    <div class="stats-summary-row"><span>Black Frequency</span><span>${stats.blackFrequency}%</span></div>
-    <div class="stats-summary-row"><span>Doubt Phrases</span><span>${stats.doubtPhrases}</span></div>
-    <div class="stats-summary-row"><span>Fader 1 Presses</span><span>${stats.fader1presses}</span></div>
-    <div class="stats-summary-row"><span>Fader 2 Presses</span><span>${stats.fader2presses}</span></div>
-    <div class="stats-summary-row"><span>Fader 3 Presses</span><span>${stats.fader3presses}</span></div>
-    <div class="stats-summary-row"><span>Fader 4 Presses</span><span>${stats.fader4presses}</span></div>
-    <div class="stats-summary-row"><span>Total Inputs</span><span>${stats.totalInputs}</span></div>
-    <div class="stats-summary-row"><span>Collisions</span><span>${stats.collisions}</span></div>
-    <div class="stats-summary-row"><span>Session Duration</span><span>${stats.sessionDurationSeconds}s</span></div>
+
+    <input 
+      type="text" 
+      class="stats-search-input" 
+      placeholder="Search stats..."
+      aria-label="Search session stats"
+    >
+
+    <div class="stats-filter-row">
+      <button class="stats-filter-button active" data-filter="all">All</button>
+      <button class="stats-filter-button" data-filter="enemies">Enemies</button>
+      <button class="stats-filter-button" data-filter="inputs">Inputs</button>
+      <button class="stats-filter-button" data-filter="events">Events</button>
+      <button class="stats-filter-button" data-filter="frequency">Frequency</button>
+      <button class="stats-filter-button" data-filter="session">Session</button>
+    </div>
+
+    <div class="stats-export-row">
+      <button class="stats-export-button" type="button">Export CSV</button>
+    </div>
+
+    <div class="stats-rows-container">
+      ${statRows.map(row => `
+        <div 
+          class="stats-summary-row" 
+          data-label="${row.label.toLowerCase()}" 
+          data-category="${row.category}"
+        >
+          <span>${row.label}</span>
+          <span>${row.value}</span>
+        </div>
+      `).join('')}
+    </div>
   `;
+
+  const searchInput = panel.querySelector('.stats-search-input');
+  const filterButtons = panel.querySelectorAll('.stats-filter-button');
+  const rows = panel.querySelectorAll('.stats-summary-row');
+  const exportButton = panel.querySelector('.stats-export-button');
+
+  let activeFilter = 'all';
+
+  function applyStatsFilters() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+
+    rows.forEach(row => {
+      const label = row.dataset.label;
+      const category = row.dataset.category;
+
+      const matchesSearch = label.includes(searchTerm);
+      const matchesFilter = activeFilter === 'all' || category === activeFilter;
+
+      row.style.display = matchesSearch && matchesFilter ? 'flex' : 'none';
+    });
+  }
+
+  searchInput.addEventListener('input', applyStatsFilters);
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      activeFilter = button.dataset.filter;
+      applyStatsFilters();
+    });
+  });
+
+  function exportStatsCSV() {
+  const csvRows = ["Metric,Value"];
+
+  statRows.forEach(row => {
+    csvRows.push(`"${row.label}","${row.value}"`);
+  });
+
+  const csvString = csvRows.join("\n");
+
+  const blob = new Blob([csvString], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "session-summary.csv";
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
+}
+
+exportButton.addEventListener('click', exportStatsCSV);
 
   return panel;
 }
