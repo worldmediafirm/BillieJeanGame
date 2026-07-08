@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . "/includes/captcha-gate.php";
+?>
+
 <!--GAME INTERFACE AFTER INDEX.HTML-->
 <!DOCTYPE html>
 <html>

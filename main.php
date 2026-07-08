@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . "/includes/captcha-gate.php";
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
