@@ -23,6 +23,7 @@ function getGameStatsSummary() {
     (gameStats.fader4presses || 0);
 
   return {
+    gameOutcome: gameStats.gameOutcome,
     totalEnemies,
     regularEnemies: gameStats.regularEnemies || 0,
     blackEnemies: gameStats.blackEnemies || 0,
@@ -57,6 +58,7 @@ function createStatsSummaryPanel() {
     { label: "Fader 4 Presses", value: stats.fader4presses, category: "inputs" },
     { label: "Total Inputs", value: stats.totalInputs, category: "inputs" },
     { label: "Collisions", value: stats.collisions, category: "events" },
+    { label: "Game Outcome", value: stats.gameOutcome, category: "session" },
     { label: "Session Duration", value: `${stats.sessionDurationSeconds}s`, category: "session" }
   ];
 
@@ -227,4 +229,26 @@ function GameLost() {
     sessionStorage.removeItem('mainCharacterBackground');
     window.location.href = 'main.html';
   }
+}
+
+async function saveGameSession() {
+    try {
+        const response = await fetch('/api/save-game-session.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(window.gameStats)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Save failed: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Game session saved:', result.session_id);
+
+    } catch (error) {
+        console.error('Game session save error:', error);
+    }
 }
