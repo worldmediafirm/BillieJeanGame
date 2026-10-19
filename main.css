@@ -565,3 +565,6 @@ body {
     padding: 7px 12px;
   }
 }
+.game-instructions-text {
+    pointer-events: none;
+}
