@@ -1,0 +1,14 @@
+
+{
+  "introBlurb": "Thank You for Visiting\n\nIf you're here, you're likely looking for a custom software solution. This live demo shows how user interactions can be tracked, processed, and turned into clear, actionable data. The experience is presented through a simple game, but the underlying system reflects real-world workflow and data management logic. More features are actively being built.",
+
+  "chooseCharacterBlurb": "You can upload an image and play as yourself or you can play as the default character, DJ UMC",
+
+  "infrastructureBlurb": "Built with Python, JavaScript, Flask, Node, and Nginx. Game sessions and gameplay statistics are captured and stored in PostgreSQL through Supabase. You can export your game session data via CSV, and stay tuned after your session ends to get overall gameplay data for the entire lifespan of this application",
+
+  "instructionsBlurbI": "Race the Enemy - Fill your bar First. Tap the FADERS towards the bottom to fill your bar.",
+
+  "instructionsBlurbII": ".:Mix it up; Don't tap the same FADER twice in a row:.",
+
+  "buttonsOnGUIBlurb": "Hit Start to begin; Turn Sound On/Off if you'd like"
+}

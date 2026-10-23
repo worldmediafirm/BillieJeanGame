@@ -1,66 +1,62 @@
-[
-  {
-    "analytics_report": {
-      "grain": "completed_game_session",
-      "period": {
-        "end": "2026-10-19T20:39:49.386+00:00",
-        "start": "2026-10-17T01:20:00+00:00"
-      },
-      "metrics": {
-        "wins": 10,
-        "losses": 10,
-        "sessions": 20,
-        "win_rate": 0.5,
-        "loss_rate": 0.5,
-        "avg_duration_seconds": 5.48,
-        "avg_collisions_per_session": 2.05
-      },
-      "report_id": "5519fe26-d461-42a8-8d2d-321a9fb9be7f",
-      "breakdowns": {
-        "by_fader": [
-          {
-            "fader_number": 1,
-            "total_presses": 32
-          },
-          {
-            "fader_number": 2,
-            "total_presses": 54
-          },
-          {
-            "fader_number": 3,
-            "total_presses": 36
-          },
-          {
-            "fader_number": 4,
-            "total_presses": 54
-          }
-        ],
-        "by_outcome": [
-          {
-            "outcome": "loss",
-            "sessions": 10
-          },
-          {
-            "outcome": "win",
-            "sessions": 10
-          }
-        ],
-        "by_enemy_type": [
-          {
-            "total": 41,
-            "enemy_type": "black"
-          },
-          {
-            "total": 22,
-            "enemy_type": "red"
-          },
-          {
-            "total": 66,
-            "enemy_type": "regular"
-          }
-        ]
-      },
-      "generated_at": "2026-10-20T01:19:10.029739+00:00"
-    }
-  }
-]
+{
+	"grain": "completed_game_session",
+	"period": {
+		"end": "2026-10-23T17:03:01.038+00:00",
+		"start": "2026-10-17T01:20:00+00:00"
+	},
+	"metrics": {
+		"wins": 12,
+		"losses": 11,
+		"sessions": 23,
+		"win_rate": 0.5217,
+		"loss_rate": 0.4783,
+		"avg_duration_seconds": 5.25,
+		"avg_collisions_per_session": 1.96
+	},
+	"report_id": "60bd7e45-8dbb-443c-8ccd-cbea4faf5354",
+	"breakdowns": {
+		"by_fader": [
+			{
+				"fader_number": 1,
+				"total_presses": 32
+			},
+			{
+				"fader_number": 2,
+				"total_presses": 71
+			},
+			{
+				"fader_number": 3,
+				"total_presses": 40
+			},
+			{
+				"fader_number": 4,
+				"total_presses": 71
+			}
+		],
+		"by_outcome": [
+			{
+				"outcome": "loss",
+				"sessions": 11
+			},
+			{
+				"outcome": "win",
+				"sessions": 12
+			}
+		],
+		"by_enemy_type": [
+			{
+				"total": 47,
+				"enemy_type": "black"
+			},
+			{
+				"total": 23,
+				"enemy_type": "red"
+			},
+			{
+				"total": 75,
+				"enemy_type": "regular"
+			}
+		]
+	},
+	"generated_at": "2026-10-23T17:04:09.269497+00:00"
+}
